@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="OtoServisSatis.Entities/OtoServisSatis.Entities.csproj" />
+  <Project Path="OtoServisSatis.WebUI/OtoServisSatis.WebUI.csproj" />
+</Solution>
