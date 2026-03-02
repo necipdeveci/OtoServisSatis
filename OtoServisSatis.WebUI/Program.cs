@@ -1,3 +1,7 @@
+using OtoServisSatis.Data;
+using OtoServisSatis.Service.Abstract;
+using OtoServisSatis.Service.Concrete;
+
 namespace OtoServisSatis.WebUI
 {
     public class Program
@@ -8,6 +12,9 @@ namespace OtoServisSatis.WebUI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<DatabaseContext>();
+            builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
 
             var app = builder.Build();
 

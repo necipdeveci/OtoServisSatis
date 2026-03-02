@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="OtoServisSatis.Data/OtoServisSatis.Data.csproj" Id="4572eed5-a2d4-41d7-9834-a75455de1839" />
   <Project Path="OtoServisSatis.Entities/OtoServisSatis.Entities.csproj" />
+  <Project Path="OtoServisSatis.Service/OtoServisSatis.Service.csproj" Id="0cf347ff-8710-41bc-8e7b-2f9563d1db17" />
   <Project Path="OtoServisSatis.WebUI/OtoServisSatis.WebUI.csproj" />
 </Solution>
