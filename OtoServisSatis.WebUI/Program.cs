@@ -31,6 +31,11 @@ namespace OtoServisSatis.WebUI
 
             app.UseAuthorization();
 
+            app.MapControllerRoute(
+            name: "admin",
+            pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}"
+            );
+
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
