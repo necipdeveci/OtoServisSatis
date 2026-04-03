@@ -7,28 +7,169 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="/admin/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        /* Ana Arka Plan ve Metin Rengi (#1D1616, #EEEEEE) */
+        body, #layoutSidenav_content {
+            background-color: #1D1616 !important;
+            color: #EEEEEE !important;
+        }
+
+        /* Ana İçerik Tipografisi (Başlıklar, metinler) */
+        h1, h2, h3, h4, h5, h6, p, span, label {
+            color: #EEEEEE !important;
+        }
+
+        /* Tablo Metin ve Çizgi Renkleri (Görseldeki okunmayan yazılar için) */
+        .table {
+            color: #EEEEEE !important;
+        }
+
+            .table th, .table td {
+                color: #EEEEEE !important;
+                border-bottom-color: #8E1616 !important;
+                vertical-align: middle;
+            }
+        /* Datatables eklentisi kullanılıyorsa onun renkleri */
+        .dataTable-table > thead > tr > th,
+        .dataTable-table > tbody > tr > td {
+            color: #EEEEEE !important;
+            border-bottom: 1px solid #8E1616 !important;
+        }
+
+        .dataTable-info, .dataTable-pagination a, .dataTable-sorter::before, .dataTable-sorter::after {
+            color: #EEEEEE !important;
+        }
+
+        /* Üst Menü (Navbar) (#8E1616) */
+        .sb-topnav.bg-dark {
+            background-color: #8E1616 !important;
+        }
+
+        /* Sol Menü (Sidebar) (#1D1616) ve Kenarlık (#8E1616) */
+        .sb-sidenav-dark {
+            background-color: #1D1616 !important;
+            border-right: 1px solid #8E1616 !important;
+        }
+
+            /* Sol Menü Başlıkları ve Linkleri (#EEEEEE) */
+            .sb-sidenav-dark .sb-sidenav-menu .nav-link,
+            .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading,
+            .sb-sidenav-footer {
+                color: #EEEEEE !important;
+            }
+
+                /* İkon Rengi (#EEEEEE) */
+                .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+                    color: #EEEEEE !important;
+                }
+
+                /* Link Hover ve Aktif Durum (Üzerine Gelince) (#D84040) */
+                .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover,
+                .sb-sidenav-dark .sb-sidenav-menu .nav-link:focus,
+                .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover .sb-nav-link-icon,
+                .sb-sidenav-dark .sb-sidenav-menu .nav-link:focus .sb-nav-link-icon {
+                    color: #D84040 !important;
+                }
+
+        /* Butonlar (#D84040 ve #8E1616) */
+        .btn-primary {
+            background-color: #D84040 !important;
+            border-color: #D84040 !important;
+            color: #EEEEEE !important;
+        }
+
+            .btn-primary:hover {
+                background-color: #8E1616 !important;
+                border-color: #8E1616 !important;
+            }
+
+        /* 'Yeni Ekle' gibi varsayılan mavi outline butonların temaya uyarlanması */
+        .btn-outline-primary {
+            color: #EEEEEE !important;
+            border-color: #D84040 !important;
+        }
+
+            .btn-outline-primary:hover {
+                background-color: #D84040 !important;
+                color: #1D1616 !important;
+            }
+
+        /* Düzenle/Sil gibi diğer genel buton metin renkleri */
+        .btn-danger, .btn-warning, .btn-info, .btn-success {
+            color: #EEEEEE !important;
+        }
+
+        /* Arama Kutusu, Dropdown Menü İkonu ve Navbar Buton İkonları (#EEEEEE) */
+        .navbar-dark .navbar-brand,
+        #sidebarToggle,
+        .navbar-dark .navbar-nav .nav-link {
+            color: #EEEEEE !important;
+        }
+
+            .navbar-dark .navbar-brand:hover,
+            #sidebarToggle:hover {
+                color: #D84040 !important;
+            }
+
+        /* Dropdown Menü Arka Planı (#1D1616) */
+        .dropdown-menu {
+            background-color: #1D1616 !important;
+            border: 1px solid #8E1616 !important;
+        }
+
+        .dropdown-item {
+            color: #EEEEEE !important;
+        }
+
+            .dropdown-item:hover {
+                background-color: #8E1616 !important;
+                color: #EEEEEE !important;
+            }
+
+        .dropdown-divider {
+            border-top: 1px solid #8E1616 !important;
+        }
+
+        /* Footer Alt Bilgi Alanı (#1D1616, #8E1616, #EEEEEE) */
+        footer.footer {
+            background-color: #1D1616 !important;
+            border-top: 1px solid #8E1616 !important;
+            color: #EEEEEE !important;
+        }
+
+            footer.footer a {
+                color: #D84040 !important;
+            }
+
+                footer.footer a:hover {
+                    color: #EEEEEE !important;
+                }
+
+        /* Form Elemanları (Arama inputu vb.) */
+        .form-control {
+            background-color: #EEEEEE !important;
+            color: #1D1616 !important;
+            border: 1px solid #8E1616 !important;
+        }
+    </style>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="/Admin/">Oto Servis Panel</a>
-        <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="Ara..." aria-label="Ara..." aria-describedby="btnNavbarSearch" />
                 <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
             </div>
         </form>
-        <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Ayarlar</a></li>
                     <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#!">Oturumu Kapat</a></li>
+                    <li><a class="dropdown-item" href="/Admin/Login/Logout">Oturumu Kapat</a></li>
                 </ul>
             </li>
         </ul>
@@ -56,7 +197,7 @@
                                 <a class="nav-link" href="/Admin/Roles/Create">Rol Ekle</a>
                             </nav>
                         </div>
-                        
+
                         <a class="nav-link" href="/Admin/Users">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                             Kullanıcılar
@@ -85,7 +226,7 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Admin
+                    necipdev
                 </div>
             </nav>
         </div>
@@ -102,8 +243,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - OtoServisSatis.WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-
+            &copy; 2026 - OtoServisSatis.WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">nd</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

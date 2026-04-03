@@ -1,0 +1,143 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Admin Login</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        /* Arka Plan Rengi (#1D1616) */
+        body.bg-primary {
+            background-color: #1D1616 !important;
+        }
+
+        /* Form Kartı */
+        .card {
+            background-color: #1D1616 !important;
+            border: 1px solid #8E1616 !important;
+        }
+
+        /* Kart Başlığı (#8E1616 arka plan, #EEEEEE metin) */
+        .card-header {
+            background-color: #8E1616 !important;
+            color: #EEEEEE !important;
+            border-bottom: 1px solid #8E1616 !important;
+        }
+
+        /* Kart İçeriği (#EEEEEE metin) */
+        .card-body, .form-check-label {
+            color: #EEEEEE !important;
+        }
+
+        /* Input (Form Elemanları) (#EEEEEE arka plan, #1D1616 metin) */
+        .form-control {
+            background-color: #EEEEEE !important;
+            color: #1D1616 !important;
+            border: 1px solid #8E1616 !important;
+        }
+
+            .form-control:focus {
+                border-color: #D84040 !important;
+                box-shadow: 0 0 0 0.25rem rgba(216, 64, 64, 0.25) !important;
+            }
+
+        /* Floating Label (Email ve Şifre yazılarının görünür olması için) */
+        .form-floating label {
+            color: #1D1616 !important;
+        }
+
+        /* Buton (#D84040) */
+        .btn-primary {
+            background-color: #D84040 !important;
+            border-color: #D84040 !important;
+            color: #EEEEEE !important;
+        }
+
+            .btn-primary:hover {
+                background-color: #8E1616 !important;
+                border-color: #8E1616 !important;
+            }
+
+        /* Footer Alt Bilgi Alanı (#1D1616 arka plan, #8E1616 kenarlık, #EEEEEE metin) */
+        footer.bg-light {
+            background-color: #1D1616 !important;
+            border-top: 1px solid #8E1616 !important;
+        }
+
+        footer .text-muted {
+            color: #EEEEEE !important;
+        }
+
+        /* Footer Linkleri (#D84040) */
+        footer a {
+            color: #D84040 !important;
+            text-decoration: none;
+        }
+
+            footer a:hover {
+                color: #EEEEEE !important;
+            }
+    </style>
+</head>
+<body class="bg-primary">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Admin Login</h3></div>
+                                <div class="card-body">
+                                    <form asp-action="Index">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="inputEmail" type="email" name="email" placeholder="name@example.com" />
+                                            <label for="inputEmail">Email</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="inputPassword" type="password" name="password" placeholder="Şifre" />
+                                            <label for="inputPassword">Şifre</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                                            <label class="form-check-label" for="inputRememberPassword">Beni Hatırla!</label>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                            <input class="btn btn-primary" type="submit" value="Giriş" />
+                                        </div>
+                                    </form>
+                                </div>
+                                @TempData["Mesaj"]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; necipdev 2026</div>
+                        <div>
+                            <a href="#">nd</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
