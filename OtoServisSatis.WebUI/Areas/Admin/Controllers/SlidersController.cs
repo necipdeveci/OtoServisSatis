@@ -82,18 +82,21 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         }
 
         // GET: SlidersController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            return View();
+            var data = await _service.FindAsync(id);
+            return View(data);
         }
 
         // POST: SlidersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, Slider collection)
         {
             try
             {
+                _service.Delete(collection);
+                await _service.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch

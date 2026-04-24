@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using OtoServisSatis.Entities;
+using OtoServisSatis.Service.Abstract;
 using OtoServisSatis.WebUI.Models;
 using System.Diagnostics;
 
@@ -6,9 +8,23 @@ namespace OtoServisSatis.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IService<Slider> _service;
+        private readonly ICarService _serviceArac;
+
+        public HomeController(IService<Slider> service, ICarService serviceArac)
         {
-            return View();
+            _service = service;
+            _serviceArac = serviceArac;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var model = new HomePageViewModel()
+            {
+                Sliders = await _service.GetAllAsync(),
+                Araclar = await _serviceArac.GetCustomCarList(a=>a.Anasayfa)
+            };
+            return View(model);
         }
 
         public IActionResult Privacy()

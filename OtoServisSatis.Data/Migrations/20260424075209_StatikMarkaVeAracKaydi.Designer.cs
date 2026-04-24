@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OtoServisSatis.Data;
 
@@ -11,9 +12,11 @@ using OtoServisSatis.Data;
 namespace OtoServisSatis.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20260424075209_StatikMarkaVeAracKaydi")]
+    partial class StatikMarkaVeAracKaydi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +32,6 @@ namespace OtoServisSatis.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Anasayfa")
-                        .HasColumnType("bit");
 
                     b.Property<decimal>("Fiyati")
                         .HasColumnType("decimal(18,2)");
@@ -86,7 +86,6 @@ namespace OtoServisSatis.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Anasayfa = true,
                             Fiyati = 1250000m,
                             KasaTipi = "Sedan",
                             MarkaId = 1,
@@ -102,7 +101,6 @@ namespace OtoServisSatis.Data.Migrations
                         new
                         {
                             Id = 2,
-                            Anasayfa = true,
                             Fiyati = 1450000m,
                             KasaTipi = "Convertible",
                             MarkaId = 2,
@@ -118,7 +116,6 @@ namespace OtoServisSatis.Data.Migrations
                         new
                         {
                             Id = 3,
-                            Anasayfa = true,
                             Fiyati = 1750000m,
                             KasaTipi = "Sedan",
                             MarkaId = 3,
@@ -190,7 +187,7 @@ namespace OtoServisSatis.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2026, 4, 24, 11, 12, 47, 141, DateTimeKind.Local).AddTicks(2384),
+                            EklenmeTarihi = new DateTime(2026, 4, 24, 10, 52, 6, 793, DateTimeKind.Local).AddTicks(1668),
                             Email = "admin@com",
                             KullaniciAdi = "admin",
                             RolId = 1,

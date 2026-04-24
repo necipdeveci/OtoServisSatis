@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OtoServisSatis.Data;
 
@@ -11,9 +12,11 @@ using OtoServisSatis.Data;
 namespace OtoServisSatis.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20260424080205_AnasayfaEklendiVeAraclarFiyatMEklendi")]
+    partial class AnasayfaEklendiVeAraclarFiyatMEklendi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,7 +89,7 @@ namespace OtoServisSatis.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Anasayfa = true,
+                            Anasayfa = false,
                             Fiyati = 1250000m,
                             KasaTipi = "Sedan",
                             MarkaId = 1,
@@ -102,7 +105,7 @@ namespace OtoServisSatis.Data.Migrations
                         new
                         {
                             Id = 2,
-                            Anasayfa = true,
+                            Anasayfa = false,
                             Fiyati = 1450000m,
                             KasaTipi = "Convertible",
                             MarkaId = 2,
@@ -118,7 +121,7 @@ namespace OtoServisSatis.Data.Migrations
                         new
                         {
                             Id = 3,
-                            Anasayfa = true,
+                            Anasayfa = false,
                             Fiyati = 1750000m,
                             KasaTipi = "Sedan",
                             MarkaId = 3,
@@ -190,7 +193,7 @@ namespace OtoServisSatis.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2026, 4, 24, 11, 12, 47, 141, DateTimeKind.Local).AddTicks(2384),
+                            EklenmeTarihi = new DateTime(2026, 4, 24, 11, 2, 1, 735, DateTimeKind.Local).AddTicks(4899),
                             Email = "admin@com",
                             KullaniciAdi = "admin",
                             RolId = 1,

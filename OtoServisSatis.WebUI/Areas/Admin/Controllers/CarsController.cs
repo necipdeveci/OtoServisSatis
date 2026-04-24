@@ -12,10 +12,10 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
 
     public class CarsController : Controller
     {
-        private readonly IService<Arac> _service;
+        private readonly ICarService _service;
         private readonly IService<Marka> _serviceMarka;
 
-        public CarsController(IService<Arac> service, IService<Marka> serviceMarka)
+        public CarsController(ICarService service, IService<Marka> serviceMarka)
         {
             _service = service;
             _serviceMarka = serviceMarka;
@@ -24,7 +24,7 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         // GET: CarsController
         public async Task<IActionResult> Index()
         {
-            var model = await _service.GetAllAsync();
+            var model = await _service.GetCustomCarList();
             return View(model);
         }
 
@@ -111,7 +111,7 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         // GET: CarsController/Delete/5
         public async Task<ActionResult> DeleteAsync(int id)
         {
-            var model = await _service.FindAsync(id);
+            var model = await _service.GetCustomCar(id);
             return View(model);
         }
 
