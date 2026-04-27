@@ -26,7 +26,7 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return Redirect("/Admin/Login");
+            return Redirect("/Account/Logout");
         }
 
         [HttpPost]
@@ -48,7 +48,7 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                     };
                     if (rol is not null)
                     {
-                        claims.Add(new Claim("Role", rol.Adi));
+                        claims.Add(new Claim(ClaimTypes.Role, rol.Adi));
                     }
                     var userIdentity = new ClaimsIdentity(claims, "Login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);

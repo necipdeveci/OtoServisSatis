@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OtoServisSatis.Entities;
 using OtoServisSatis.Service.Abstract;
+using OtoServisSatis.WebUI.Models;
+using System.Security.Claims;
 
 namespace OtoServisSatis.WebUI.Controllers
 {
@@ -8,16 +10,44 @@ namespace OtoServisSatis.WebUI.Controllers
     {
         private readonly ICarService _serviceArac;
         private readonly IService<Musteri> _serviceMusteri;
+        private readonly IUserService _service;
 
-        public AracController(ICarService serviceArac, IService<Musteri> serviceMusteri)
+        public AracController(ICarService serviceArac, IService<Musteri> serviceMusteri, IUserService service)
         {
             _serviceArac = serviceArac;
             _serviceMusteri = serviceMusteri;
+            _service = service;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int? id)
         {
-            var model = await _serviceArac.GetCustomCar(id);
+            if (id == null) BadRequest();
+
+            var arac = await _serviceArac.GetCustomCar(id.Value);
+            if (arac == null) NotFound();
+            var model = new CarDetailViewModel();
+            model.Arac = arac;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var email = User.FindFirst(ClaimTypes.Email)?.Value;
+                var uguid = User.FindFirst(ClaimTypes.UserData)?.Value;
+                if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(uguid))
+                {
+                    var user = _service.Get(u => u.Email == email && u.UserGuid.ToString() == uguid);
+                    if (user != null)
+                    {
+                        model.Musteri = new Musteri
+                        {
+                            Adi = user.Adi,
+                            Soyadi = user.Soyadi,
+                            Email = user.Email,
+                            Telefon = user.Telefon
+                        };
+                    }
+                }
+            }
+
             return View(model);
         }
         [Route("tum-araclarimiz")]
