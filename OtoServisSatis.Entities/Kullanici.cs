@@ -23,7 +23,7 @@ namespace OtoServisSatis.Entities
         [Display(Name = "Kullanıcı Rolü"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public int RolId { get; set; }
         [Display(Name = "Kullanıcı Rolü")]
-        public Rol? Rol { get; set; }
+        public virtual Rol? Rol { get; set; }
         public Guid? UserGuid { get; set; } = Guid.NewGuid();
 
     }

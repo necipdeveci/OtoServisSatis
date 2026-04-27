@@ -24,6 +24,11 @@ namespace OtoServisSatis.Entities
         public string? Telefon { get; set; }
         public string? Notlar { get; set; }
         [Display(Name = "Araç")]
-        public Arac? Arac { get; set; }
+        public virtual Arac? Arac { get; set; }
+        [Display(Name = "Ad Soyad"), ScaffoldColumn(false)]
+        public string? AdSoyad
+        {
+            get { return this.Adi + " " + this.Soyadi; }
+        }
     }
 }

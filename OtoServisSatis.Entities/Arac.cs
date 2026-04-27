@@ -31,6 +31,12 @@ namespace OtoServisSatis.Entities
         public string? Resim2 { get; set; }
         [StringLength(100)]
         public string? Resim3 { get; set; }
-        public Marka? Marka { get; set; }
+        public virtual Marka? Marka { get; set; }
+        [Display(Name = "Renk Model KasaTipi"), ScaffoldColumn(false)]
+        public string? AracBilgi
+        {
+            get { return this.Renk + " " + this.Modeli + " " + this.KasaTipi; }
+        }
+
     }
 }

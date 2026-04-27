@@ -14,8 +14,8 @@ namespace OtoServisSatis.Entities
         [Display(Name = "Satış Tarihi")]
         public DateTime SatisTarihi { get; set; }
         [Display(Name = "Araç")]
-        public Arac? Arac { get; set; }
+        public virtual Arac? Arac { get; set; }
         [Display(Name = "Müşteri")]
-        public Musteri? Musteri { get; set; }
+        public virtual Musteri? Musteri { get; set; }
     }
 }

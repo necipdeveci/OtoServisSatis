@@ -18,7 +18,7 @@ namespace OtoServisSatis.Data
         {
             optionsBuilder.UseSqlServer(@"server=.\SQLEXPRESS;
             database=OtoServisSatisNetCore; integrated security=True; TrustServerCertificate=True;");
-
+            optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
 
             base.OnConfiguring(optionsBuilder);
@@ -79,7 +79,7 @@ namespace OtoServisSatis.Data
                     KasaTipi = "Convertible",
                     ModelYili = 2022,
                     SatistaMi = true,
-                    Anasayfa  =true,
+                    Anasayfa = true,
                     Notlar = "Yetkili servis bakımlı.",
                     Resim1 = "ford_on.png",
                     Resim2 = "ford_arka.png",
