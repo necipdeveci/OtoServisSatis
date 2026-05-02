@@ -34,7 +34,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="YapilanIslemler" class="control-label"></label>
-                <input asp-for="YapilanIslemler" class="form-control" />
+                <div id="islemlerContainer">
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control islem-input" placeholder="İşlem ekleyin..." />
+                        <button type="button" class="btn btn-success btn-add-islem" title="Yeni işlem ekle">+</button>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="YapilanIslemler" id="yapilanIslemlerHidden" />
                 <span asp-validation-for="YapilanIslemler" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -81,5 +87,65 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            // Veritabanından gelen işlemleri yükle ve ayrıştır
+            var yapilanIslemler = '@Html.Raw(Model.YapilanIslemler)';
+            if (yapilanIslemler) {
+                var islemler = yapilanIslemler.split(',');
+                islemler.forEach(function(islem, index) {
+                    if (index === 0) {
+                        // İlk işlemi varsayılan input'a koy
+                        $('#islemlerContainer').find('.islem-input:first').val(islem.trim());
+                    } else {
+                        // Diğer işlemleri yeni input'lara ekle
+                        var newInput = $(`
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control islem-input" placeholder="İşlem ekleyin..." value="${islem.trim()}" />
+                                <button type="button" class="btn btn-danger btn-remove-islem" title="Kaldır">−</button>
+                            </div>
+                        `);
+                        $('#islemlerContainer').append(newInput);
+                    }
+                });
+            }
+
+            // Yeni işlem input ekle
+            $(document).on('click', '.btn-add-islem', function() {
+                var inputValue = $(this).siblings('.islem-input').val().trim();
+
+                var newInput = $(`
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control islem-input" placeholder="İşlem ekleyin..." value="${inputValue}" />
+                        <button type="button" class="btn btn-danger btn-remove-islem" title="Kaldır">−</button>
+                    </div>
+                `);
+                $('#islemlerContainer').append(newInput);
+
+                // Varsayılan input'u boşalt ve fokus ver
+                $(this).siblings('.islem-input').val('').focus();
+            });
+
+            // İşlem input kaldır
+            $(document).on('click', '.btn-remove-islem', function() {
+                $(this).closest('.input-group').remove();
+            });
+
+            // Form submit öncesi verileri CSV formatına çevir
+            $('form').on('submit', function() {
+                var islemler = [];
+                $('.islem-input').each(function() {
+                    var deger = $(this).val().trim();
+                    if (deger) {
+                        islemler.push(deger);
+                    }
+                });
+                $('#yapilanIslemlerHidden').val(islemler.join(','));
+            });
+        });
+    </script>
 }

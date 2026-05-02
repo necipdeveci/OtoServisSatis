@@ -31,6 +31,20 @@ namespace OtoServisSatis.WebUI
                     x.Cookie.Name = "Admin";
                     x.Cookie.MaxAge = TimeSpan.FromDays(7);
                     x.Cookie.IsEssential = true;
+
+                    // Dynamic yönlendirme
+                    x.Events.OnRedirectToAccessDenied = context =>
+                    {
+                        if (context.Request.Path.StartsWithSegments("/Admin"))
+                        {
+                            context.Response.Redirect("/Admin/Users/AccessDenied");
+                        }
+                        else
+                        {
+                            context.Response.Redirect("/AccessDenied");
+                        }
+                        return Task.CompletedTask;
+                    };
                 });
 
             builder.Services.AddAuthorization(x =>
@@ -41,6 +55,10 @@ namespace OtoServisSatis.WebUI
                 x.AddPolicy("AdminPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
                 x.AddPolicy("UserPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin", "User"));
                 x.AddPolicy("CustomerPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin", "User", "Customer"));
+                x.AddPolicy("ServisPersoneliPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin", "ServisPersoneli"));
+                x.AddPolicy("SatisTemsilcisiPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin", "SatisTemsilcisi"));
+                // Admin sayfası tüm rolleri kabul etsin
+                x.AddPolicy("AdminPagePolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin", "User", "ServisPersoneli", "SatisTemsilcisi", "Customer"));
             });
 
             var app = builder.Build();

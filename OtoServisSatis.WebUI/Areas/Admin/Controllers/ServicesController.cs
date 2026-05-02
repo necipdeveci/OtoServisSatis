@@ -6,7 +6,7 @@ using OtoServisSatis.Service.Abstract;
 
 namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
+    [Area("Admin"), Authorize(Policy = "ServisPersoneliPolicy")]
 
     public class ServicesController : Controller
     {

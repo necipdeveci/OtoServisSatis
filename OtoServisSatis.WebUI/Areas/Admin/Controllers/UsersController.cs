@@ -118,5 +118,10 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                 return View();
             }
         }
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

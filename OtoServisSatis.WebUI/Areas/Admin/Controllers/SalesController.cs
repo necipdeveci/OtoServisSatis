@@ -7,7 +7,7 @@ using OtoServisSatis.Service.Abstract;
 
 namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
+    [Area("Admin"), Authorize(Policy = "SatisTemsilcisiPolicy")]
 
     public class SalesController : Controller
     {
@@ -122,6 +122,18 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
             {
                 return View();
             }
+        }
+        // GET: GetAracPrice/5
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GetAracPrice(int id)
+        {
+            var arac = await _serviceArac.FindAsync(id);
+            if (arac == null)
+            {
+                return NotFound();
+            }
+            return Json(new { fiyati = arac.Fiyati });
         }
     }
 }

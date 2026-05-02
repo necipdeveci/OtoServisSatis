@@ -101,7 +101,7 @@ namespace OtoServisSatis.WebUI.Controllers
         {
             return View();
         }
-        [HttpPost]
+        /*[HttpPost]
         public async Task<IActionResult> LoginAsync(CustomerLoginViewModel customerViewModel)
         {
             try
@@ -132,6 +132,49 @@ namespace OtoServisSatis.WebUI.Controllers
                         return Redirect("/Admin");
                     }
                     return Redirect("/Account");
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Hata Oluştu!");
+            }
+            return View();
+        }
+        */
+        [HttpPost]
+        public async Task<IActionResult> LoginAsync(CustomerLoginViewModel customerViewModel)
+        {
+            try
+            {
+                var account = await _service.GetAsync(k => k.Email == customerViewModel.Email && k.Sifre == customerViewModel.Sifre && k.AktifMi == true);
+                if (account == null)
+                {
+                    ModelState.AddModelError("", "Giriş Başarısız!");
+                }
+                else
+                {
+                    var rol = _serviceRol.Get(r => r.Id == account.RolId);
+
+                    if (rol == null)
+                    {
+                        ModelState.AddModelError("", "Rol Bulunamadı!");
+                        return View();
+                    }
+
+                    var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, account.Adi),
+                new Claim(ClaimTypes.Email, account.Email),
+                new Claim(ClaimTypes.UserData, account.UserGuid.ToString()),
+                new Claim(ClaimTypes.Role, rol.Adi)
+            };
+
+                    var userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                    await HttpContext.SignInAsync(principal);
+
+                    // Hepsi admin sayfasına gidecek
+                    return Redirect("/Admin");
                 }
             }
             catch (Exception)
