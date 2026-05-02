@@ -2,42 +2,112 @@
 @{
     ViewData["Title"] = "Favorilerim";
 }
-<h1>Favorilerim</h1>
+<style>
+    html[data-theme="dark"] .favorites-container {
+        background-color: var(--dark-surface-2);
+    }
 
-@if (Model is not null && Model.Count() > 0)
-{
-    <table class="table table-hover table-secondary">
-        <tr>
-            <th>Araç</th>
-            <th>Resim</th>
-            <th> </th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <a class="nav-link text-dark" href="/Arac/Index/@item.Id">
-                        @item.Marka.Adi @item.Modeli @item.KasaTipi @item.Renk
-                    </a>
-                </td>
-                <td>
-                    <a href="/Img/Cars/@item.Resim1">
-                        <img src="/Img/Cars/@item.Resim1" alt="@item.Modeli" height="40" />
-                    </a>
-                </td>
-                <td>
-                    <form action="/Favorites/Remove" method="post">
-                        <input type="hidden" name="aracId" value="@item.Id" />
-                        <button type="submit" class="btn btn-outline-dark">Favorilerden Kaldır</button>
-                    </form>
-                </td>
-            </tr>
+        html[data-theme="dark"] .favorites-container .card {
+            background-color: var(--dark-surface);
         }
-    </table>
-}
-else
-{
-    <div class="alert alert-warning">
-        <p>Favorilerinizde araç bulunmamaktadır.</p>
+
+        html[data-theme="dark"] .favorites-container .table {
+            background-color: transparent;
+        }
+
+            html[data-theme="dark"] .favorites-container .table thead {
+                background-color: #2A2A2A;
+                border-bottom: 2px solid var(--dark-border-strong);
+            }
+
+                html[data-theme="dark"] .favorites-container .table thead th {
+                    color: var(--dark-primary);
+                    font-weight: 600;
+                }
+
+            html[data-theme="dark"] .favorites-container .table tbody tr:hover {
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+    html[data-theme="light"] .favorites-container {
+        background-color: var(--light-surface-2);
+    }
+
+        html[data-theme="light"] .favorites-container .table thead {
+            background-color: #F0F0F0;
+            border-bottom: 2px solid var(--light-border-strong);
+        }
+
+            html[data-theme="light"] .favorites-container .table thead th {
+                color: var(--light-text);
+                font-weight: 600;
+            }
+</style>
+
+<div class="favorites-container pt-5 pb-5" style="margin-left: -12px; margin-right: -12px; padding-left: 12px; padding-right: 12px;">
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <h1 class="mb-2">Favorilerim</h1>
+                <p class="text-muted">Kaydettiğiniz araçları burada yönetin</p>
+            </div>
+        </div>
+
+        @if (Model is not null && Model.Count() > 0)
+        {
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="py-3 ps-4">Araç Bilgisi</th>
+                                    <th class="py-3">Resim</th>
+                                    <th class="py-3 pe-4 text-end">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="align-middle">
+                                        <td class="py-3 ps-4">
+                                            <a class="text-decoration-none" href="/Arac/Index/@item.Id">
+                                                <strong>@item.Marka.Adi @item.Modeli</strong>
+                                                <br />
+                                                <small class="text-muted">@item.KasaTipi • @item.Renk</small>
+                                            </a>
+                                        </td>
+                                        <td class="py-3">
+                                            <a href="/Img/Cars/@item.Resim1" class="d-inline-block" title="@item.Modeli">
+                                                <img src="/Img/Cars/@item.Resim1" alt="@item.Modeli"
+                                                     height="50" class="rounded" />
+                                            </a>
+                                        </td>
+                                        <td class="py-3 pe-4 text-end">
+                                            <form action="/Favorites/Remove" method="post" class="d-inline">
+                                                <input type="hidden" name="aracId" value="@item.Id" />
+                                                <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                                    Kaldır
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center py-5">
+                    <h5 class="mb-3">Favori araç bulunmuyor</h5>
+                    <p class="text-muted mb-4">Henüz favori listesine araç eklemediniz.</p>
+                    <a href="/" class="btn btn-primary">Araçlara Gözat</a>
+                </div>
+            </div>
+        }
     </div>
-}
+</div>

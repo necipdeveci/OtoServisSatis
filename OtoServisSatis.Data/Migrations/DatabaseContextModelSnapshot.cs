@@ -146,14 +146,14 @@ namespace OtoServisSatis.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2026, 5, 2, 17, 40, 35, 982, DateTimeKind.Local).AddTicks(1832),
+                            EklenmeTarihi = new DateTime(2026, 5, 3, 1, 4, 51, 349, DateTimeKind.Local).AddTicks(1777),
                             Email = "admin@com",
                             KullaniciAdi = "admin",
                             RolId = 1,
                             Sifre = "123456",
                             Soyadi = "Admin",
                             Telefon = "1234567890",
-                            UserGuid = new Guid("df55ac34-e802-4e08-a851-53a760acf49e")
+                            UserGuid = new Guid("39201ecf-c05f-42f9-880f-e611485574a5")
                         });
                 });
 
@@ -245,26 +245,6 @@ namespace OtoServisSatis.Data.Migrations
                         {
                             Id = 1,
                             Adi = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Adi = "User"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Adi = "ServisPersoneli"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Adi = "SatisTemsilcisi"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Adi = "Customer"
                         });
                 });
 

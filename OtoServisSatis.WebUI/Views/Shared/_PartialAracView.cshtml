@@ -4,7 +4,7 @@
 @foreach (var item in Model)
 {
     <div class="col mb-5">
-        <div class="card h-100">
+        <div class="card h-100" style="min-height: 420px; display: flex; flex-direction: column;">
             <div class="badge position-absolute" style="top: 0.5rem; right: 0.5rem;">
                 <form action="/Favorites/Add" method="post">
                     <input type="hidden" name="aracId" value="@item.Id" />
@@ -13,16 +13,16 @@
                     </button>
                 </form>
             </div>
-            <a class="btn mt-auto" href="/Arac/Index/@item.Id">
+            <a class="btn mt-auto" href="/Arac/Index/@item.Id" style="display: flex; flex-direction: column; text-decoration: none; height: 100%;">
                 <!-- Product image-->
-                <img class="card-img-top" src="/Img/Cars/@item.Resim1" alt="...">
+                <img class="card-img-top" src="/Img/Cars/@item.Resim1" alt="..." style="height: 250px; object-fit: cover;">
                 <!-- Product details-->
-                <div class="card-body p-4">
+                <div class="card-body p-4 d-flex flex-column justify-content-center">
                     <div class="text-center">
                         <!-- Product name-->
-                        <h5 class="fw-bolder">@item.Marka.Adi @item.Modeli @item.KasaTipi</h5>
+                        <h5 class="fw-bolder" style="min-height: 2.8rem; display: flex; align-items: center; justify-content: center;">@item.Marka.Adi @item.Modeli @item.KasaTipi</h5>
                         <!-- Product price-->
-                        @item.Fiyati ₺
+                        <span>₺@item.Fiyati.ToString("N0")</span>
                     </div>
                 </div>
             </a>

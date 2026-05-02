@@ -29,11 +29,7 @@ namespace OtoServisSatis.Data
             modelBuilder.Entity<Marka>().Property(m => m.Adi).IsRequired().HasColumnType("varchar(50)");
             modelBuilder.Entity<Rol>().Property(m => m.Adi).IsRequired().HasColumnType("varchar(50)");
             modelBuilder.Entity<Rol>().HasData(
-                new Rol { Id = 1, Adi = "Admin" },
-                new Rol { Id = 2, Adi = "User" },
-                new Rol { Id = 3, Adi = "ServisPersoneli" },
-                new Rol { Id = 4, Adi = "SatisTemsilcisi" },
-                new Rol { Id = 5, Adi = "Customer" }
+                new Rol { Id = 1, Adi = "Admin" }
             );
             modelBuilder.Entity<Kullanici>().HasData(new Kullanici
             {

@@ -51,7 +51,7 @@
                     @Html.DisplayFor(modelItem => item.Renk)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Fiyati)
+                    ₺@item.Fiyati.ToString("N0")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Modeli)
