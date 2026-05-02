@@ -24,7 +24,45 @@ namespace OtoServisSatis.WebUI.Controllers
         {
             List<Arac>? araclar = new();
             araclar = HttpContext.Session.GetJson<List<Arac>>("GetFavorites");
-            return araclar;
+            return araclar ?? new List<Arac>();
+        }
+        public IActionResult Add(int aracId)
+        {
+            try
+            {
+                var arac = _serviceArac.Find(aracId);
+                var favoriler = GetFavorites();
+                if (arac != null && !favoriler.Any(a => a.Id == aracId))
+                {
+                    favoriler.Add(arac);
+                    HttpContext.Session.SetJson("GetFavorites", favoriler);
+                }
+            }
+            catch (Exception)
+            {
+                TempData["Message"] = "<div class='alert alert-danger'>Bir hata oluştu.</div>";
+            }
+            
+            return RedirectToAction("Index");
+        }
+        public IActionResult Remove(int aracId)
+        {
+            try
+            {
+                var arac = _serviceArac.Find(aracId);
+                var favoriler = GetFavorites();
+                if (arac != null && favoriler.Any(a => a.Id == aracId))
+                {
+                    favoriler.RemoveAll(a => a.Id == aracId);
+                    HttpContext.Session.SetJson("GetFavorites", favoriler);
+                }
+            }
+            catch (Exception)
+            {
+                TempData["Message"] = "<div class='alert alert-danger'>Bir hata oluştu.</div>";
+            }
+            
+            return RedirectToAction("Index");
         }
     }
 }
