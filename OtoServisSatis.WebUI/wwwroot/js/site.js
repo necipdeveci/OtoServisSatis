@@ -129,15 +129,25 @@ class ThemeManager {
     }
 
     /**
-     * Update button's aria attributes based on current theme
+     * Update button's aria attributes and icon based on current theme
      */
     updateButtonState(btn) {
         const currentTheme = this.htmlElement.getAttribute('data-theme') || this.darkTheme;
         const isLight = currentTheme === this.lightTheme;
 
         btn.setAttribute('aria-pressed', isLight ? 'true' : 'false');
-        btn.setAttribute('aria-label', isLight ? 'Dark mode' : 'Light mode');
-        btn.title = isLight ? 'Switch to dark mode' : 'Switch to light mode';
+        btn.setAttribute('aria-label', isLight ? 'Koyu mod' : 'Açık mod');
+        btn.title = isLight ? 'Koyu moda geç' : 'Açık moda geç';
+
+        // Dinamik ikon değişikliği
+        const icon = btn.querySelector('i');
+        if (icon) {
+            if (isLight) {
+                icon.className = 'bi bi-sun-fill'; // Light theme → Sun icon
+            } else {
+                icon.className = 'bi bi-moon-stars'; // Dark theme → Moon icon
+            }
+        }
     }
 
     /**

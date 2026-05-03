@@ -1016,3 +1016,252 @@ html[data-theme="light"] .hero-link {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
 }
+
+/* Satırın sonuna ekle */
+
+/* ========================================
+   ADMIN LAYOUT STYLES
+   ======================================== */
+html[data-theme="dark"] .sb-topnav.bg-dark {
+    background-color: var(--dark-surface-2) !important;
+    border-bottom: 1px solid var(--dark-border) !important;
+}
+
+html[data-theme="light"] .sb-topnav.bg-dark {
+    background-color: var(--light-surface-2) !important;
+    border-bottom: 1px solid var(--light-border) !important;
+}
+
+html[data-theme="dark"] #layoutSidenav_content {
+    background-color: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="light"] #layoutSidenav_content {
+    background-color: var(--light-bg) !important;
+    color: var(--light-text) !important;
+}
+
+html[data-theme="dark"] .sb-sidenav-dark {
+    background-color: var(--dark-surface) !important;
+    border-right: 1px solid var(--dark-border) !important;
+}
+
+html[data-theme="light"] .sb-sidenav-dark {
+    background-color: var(--light-surface) !important;
+    border-right: 1px solid var(--light-border) !important;
+}
+
+html[data-theme="dark"] .sb-sidenav-dark .sb-sidenav-menu .nav-link,
+html[data-theme="dark"] .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading,
+html[data-theme="dark"] .sb-sidenav-footer {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="light"] .sb-sidenav-dark .sb-sidenav-menu .nav-link,
+html[data-theme="light"] .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading,
+html[data-theme="light"] .sb-sidenav-footer {
+    color: var(--light-text) !important;
+}
+
+html[data-theme="dark"] .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="light"] .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+    color: var(--light-text) !important;
+}
+
+html[data-theme="dark"] .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover,
+html[data-theme="dark"] .sb-sidenav-dark .sb-sidenav-menu .nav-link:focus,
+html[data-theme="dark"] .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover .sb-nav-link-icon,
+html[data-theme="dark"] .sb-sidenav-dark .sb-sidenav-menu .nav-link:focus .sb-nav-link-icon {
+    color: var(--dark-primary) !important;
+}
+
+html[data-theme="light"] .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover,
+html[data-theme="light"] .sb-sidenav-dark .sb-sidenav-menu .nav-link:focus,
+html[data-theme="light"] .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover .sb-nav-link-icon,
+html[data-theme="light"] .sb-sidenav-dark .sb-sidenav-menu .nav-link:focus .sb-nav-link-icon {
+    color: var(--light-primary) !important;
+}
+
+html[data-theme="dark"] .navbar-brand {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="light"] .navbar-brand {
+    color: var(--light-text) !important;
+}
+
+html[data-theme="dark"] .navbar-brand:hover {
+    color: var(--dark-primary) !important;
+}
+
+html[data-theme="light"] .navbar-brand:hover {
+    color: var(--light-primary) !important;
+}
+
+html[data-theme="dark"] #sidebarToggle {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="light"] #sidebarToggle {
+    color: var(--light-text) !important;
+}
+
+html[data-theme="dark"] #sidebarToggle:hover {
+    color: var(--dark-primary) !important;
+}
+
+html[data-theme="light"] #sidebarToggle:hover {
+    color: var(--light-primary) !important;
+}
+
+html[data-theme="dark"] .navbar-dark .navbar-nav .nav-link {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="light"] .navbar-dark .navbar-nav .nav-link {
+    color: var(--light-text) !important;
+}
+
+html[data-theme="dark"] .dataTable-table > thead > tr > th,
+html[data-theme="dark"] .dataTable-table > tbody > tr > td {
+    color: var(--dark-text) !important;
+    border-bottom: 1px solid var(--dark-border) !important;
+}
+
+html[data-theme="light"] .dataTable-table > thead > tr > th,
+html[data-theme="light"] .dataTable-table > tbody > tr > td {
+    color: var(--light-text) !important;
+    border-bottom: 1px solid var(--light-border) !important;
+}
+
+html[data-theme="dark"] .dataTable-info,
+html[data-theme="dark"] .dataTable-pagination a,
+html[data-theme="dark"] .dataTable-sorter::before,
+html[data-theme="dark"] .dataTable-sorter::after {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="light"] .dataTable-info,
+html[data-theme="light"] .dataTable-pagination a,
+html[data-theme="light"] .dataTable-sorter::before,
+html[data-theme="light"] .dataTable-sorter::after {
+    color: var(--light-text) !important;
+}
+
+/* ========================================
+   FORM CHECK (CHECKBOX) - UPDATED WITH LARGER CHECKMARK
+   ======================================== */
+html[data-theme="dark"] .form-check-input {
+    background-color: var(--dark-input-bg) !important;
+    border: 2px solid var(--dark-input-border) !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    html[data-theme="dark"] .form-check-input:hover:not(:disabled) {
+        border-color: var(--dark-primary) !important;
+        box-shadow: 0 0 0 3px rgba(234, 234, 234, 0.15) !important;
+    }
+
+    html[data-theme="dark"] .form-check-input:focus {
+        border-color: var(--dark-primary) !important;
+        box-shadow: 0 0 0 3px rgba(234, 234, 234, 0.25) !important;
+    }
+
+    html[data-theme="dark"] .form-check-input:checked {
+        background-color: var(--dark-primary) !important;
+        border-color: var(--dark-primary) !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%230B0B0B' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m3.5 8.5 3 3 6-7'/%3e%3c/svg%3e") !important;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 85% 85%;
+    }
+
+        html[data-theme="dark"] .form-check-input:checked:hover {
+            background-color: var(--dark-primary-hover) !important;
+            border-color: var(--dark-primary-hover) !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%230B0B0B' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m3.5 8.5 3 3 6-7'/%3e%3c/svg%3e") !important;
+        }
+
+    html[data-theme="dark"] .form-check-input:disabled {
+        background-color: var(--dark-disabled-bg) !important;
+        border-color: var(--dark-input-border) !important;
+        cursor: not-allowed;
+    }
+
+html[data-theme="light"] .form-check-input {
+    background-color: var(--light-input-bg) !important;
+    border: 2px solid var(--light-input-border) !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    html[data-theme="light"] .form-check-input:hover:not(:disabled) {
+        border-color: var(--light-primary) !important;
+        box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1) !important;
+    }
+
+    html[data-theme="light"] .form-check-input:focus {
+        border-color: var(--light-primary) !important;
+        box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.15) !important;
+    }
+
+    html[data-theme="light"] .form-check-input:checked {
+        background-color: var(--light-primary) !important;
+        border-color: var(--light-primary) !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m3.5 8.5 3 3 6-7'/%3e%3c/svg%3e") !important;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 85% 85%;
+    }
+
+        html[data-theme="light"] .form-check-input:checked:hover {
+            background-color: var(--light-primary-hover) !important;
+            border-color: var(--light-primary-hover) !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m3.5 8.5 3 3 6-7'/%3e%3c/svg%3e") !important;
+        }
+
+    html[data-theme="light"] .form-check-input:disabled {
+        background-color: var(--light-disabled-bg) !important;
+        border-color: var(--light-input-border) !important;
+        cursor: not-allowed;
+    }
+
+/* Form Check Label */
+html[data-theme="dark"] .form-check-label {
+    color: var(--dark-text) !important;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+    margin-bottom: 0;
+}
+
+    html[data-theme="dark"] .form-check-label:hover {
+        color: var(--dark-primary) !important;
+    }
+
+html[data-theme="light"] .form-check-label {
+    color: var(--light-text) !important;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+    margin-bottom: 0;
+}
+
+    html[data-theme="light"] .form-check-label:hover {
+        color: var(--light-primary) !important;
+    }
+
+html[data-theme="dark"] .form-check-input:disabled ~ .form-check-label {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+html[data-theme="light"] .form-check-input:disabled ~ .form-check-label {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

@@ -4,160 +4,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OtoServisSatis.WebUI</title>
+
+    <!-- DataTables CSS -->
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+
+    <!-- Admin Layout CSS (Yapı & Layout) -->
     <link href="/admin/css/styles.css" rel="stylesheet" />
+
+    <!-- Modern Tema CSS (Renkler & Tema Sistemi) -->
+    <link href="/css/site.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <style>
-
-        /* Ana Arka Plan ve Metin Rengi (#1D1616, #EEEEEE) */
-        body, #layoutSidenav_content {
-            background-color: #1D1616 !important;
-            color: #EEEEEE !important;
-        }
-
-        /* Ana İçerik Tipografisi (Başlıklar, metinler) */
-        h1, h2, h3, h4, h5, h6, p, span, label {
-            color: #EEEEEE !important;
-        }
-
-        /* Tablo Metin ve Çizgi Renkleri (Görseldeki okunmayan yazılar için) */
-        .table {
-            color: #EEEEEE !important;
-        }
-
-            .table th, .table td {
-                color: #EEEEEE !important;
-                border-bottom-color: #8E1616 !important;
-                vertical-align: middle;
-            }
-        /* Datatables eklentisi kullanılıyorsa onun renkleri */
-        .dataTable-table > thead > tr > th,
-        .dataTable-table > tbody > tr > td {
-            color: #EEEEEE !important;
-            border-bottom: 1px solid #8E1616 !important;
-        }
-
-        .dataTable-info, .dataTable-pagination a, .dataTable-sorter::before, .dataTable-sorter::after {
-            color: #EEEEEE !important;
-        }
-
-        /* Üst Menü (Navbar) (#8E1616) */
-        .sb-topnav.bg-dark {
-            background-color: #8E1616 !important;
-        }
-
-        /* Sol Menü (Sidebar) (#1D1616) ve Kenarlık (#8E1616) */
-        .sb-sidenav-dark {
-            background-color: #1D1616 !important;
-            border-right: 1px solid #8E1616 !important;
-        }
-
-            /* Sol Menü Başlıkları ve Linkleri (#EEEEEE) */
-            .sb-sidenav-dark .sb-sidenav-menu .nav-link,
-            .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading,
-            .sb-sidenav-footer {
-                color: #EEEEEE !important;
-            }
-
-                /* İkon Rengi (#EEEEEE) */
-                .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-                    color: #EEEEEE !important;
-                }
-
-                /* Link Hover ve Aktif Durum (Üzerine Gelince) (#D84040) */
-                .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover,
-                .sb-sidenav-dark .sb-sidenav-menu .nav-link:focus,
-                .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover .sb-nav-link-icon,
-                .sb-sidenav-dark .sb-sidenav-menu .nav-link:focus .sb-nav-link-icon {
-                    color: #D84040 !important;
-                }
-
-        /* Butonlar (#D84040 ve #8E1616) */
-        .btn-primary {
-            background-color: #D84040 !important;
-            border-color: #D84040 !important;
-            color: #EEEEEE !important;
-        }
-
-            .btn-primary:hover {
-                background-color: #8E1616 !important;
-                border-color: #8E1616 !important;
-            }
-
-        /* 'Yeni Ekle' gibi varsayılan mavi outline butonların temaya uyarlanması */
-        .btn-outline-primary {
-            color: #EEEEEE !important;
-            border-color: #D84040 !important;
-        }
-
-            .btn-outline-primary:hover {
-                background-color: #D84040 !important;
-                color: #1D1616 !important;
-            }
-
-        /* Düzenle/Sil gibi diğer genel buton metin renkleri */
-        .btn-danger, .btn-warning, .btn-info, .btn-success {
-            color: #EEEEEE !important;
-        }
-
-        /* Arama Kutusu, Dropdown Menü İkonu ve Navbar Buton İkonları (#EEEEEE) */
-        .navbar-dark .navbar-brand,
-        #sidebarToggle,
-        .navbar-dark .navbar-nav .nav-link {
-            color: #EEEEEE !important;
-        }
-
-            .navbar-dark .navbar-brand:hover,
-            #sidebarToggle:hover {
-                color: #D84040 !important;
-            }
-
-        /* Dropdown Menü Arka Planı (#1D1616) */
-        .dropdown-menu {
-            background-color: #1D1616 !important;
-            border: 1px solid #8E1616 !important;
-        }
-
-        .dropdown-item {
-            color: #EEEEEE !important;
-        }
-
-            .dropdown-item:hover {
-                background-color: #8E1616 !important;
-                color: #EEEEEE !important;
-            }
-
-        .dropdown-divider {
-            border-top: 1px solid #8E1616 !important;
-        }
-
-        /* Footer Alt Bilgi Alanı (#1D1616, #8E1616, #EEEEEE) */
-        footer.footer {
-            background-color: #1D1616 !important;
-            border-top: 1px solid #8E1616 !important;
-            color: #EEEEEE !important;
-        }
-
-            footer.footer a {
-                color: #D84040 !important;
-            }
-
-                footer.footer a:hover {
-                    color: #EEEEEE !important;
-                }
-
-        /* Form Elemanları (Arama inputu vb.) */
-        .form-control {
-            background-color: #EEEEEE !important;
-            color: #1D1616 !important;
-            border: 1px solid #8E1616 !important;
-        }
-    </style>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand ps-3" href="/Admin/">Oto Servis Panel</a>
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!" type="button">
+            <i class="fas fa-bars"></i>
+        </button>
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="Ara..." aria-label="Ara..." aria-describedby="btnNavbarSearch" />
@@ -165,8 +30,15 @@
             </div>
         </form>
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item">
+                <button class="btn btn-link theme-toggle-btn" aria-label="Light mode" title="Switch to light mode" type="button">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user fa-fw"></i>
+                </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Ayarlar</a></li>
                     <li><hr class="dropdown-divider" /></li>
@@ -181,79 +53,78 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">
-                            Menü
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <a class="nav-link" href="/Admin/">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                    Ana Ekran
-                                </a>
-                            }
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <a class="nav-link" href="/Admin/Sliders">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                    Slider Yönetimi
-                                </a>
-                            }
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                    Rol Yönetimi
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="/Admin/Roles">Roller</a>
-                                        <a class="nav-link" href="/Admin/Roles/Create">Rol Ekle</a>
-                                    </nav>
-                                </div>
-                            }
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <a class="nav-link" href="/Admin/Users">
-                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
-                                    Kullanıcılar
-                                </a>
-                            }
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <a class="nav-link" href="/Admin/Brands">
-                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-copyright"></i></div>
-                                    Markalar
-                                </a>
-                            }
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <a class="nav-link" href="/Admin/Cars">
-                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-car"></i></div>
-                                    Araçlar
-                                </a>
-                            }
-                            @if (User.IsInRole("Admin") || User.IsInRole("SatisTemsilcisi"))
-                            {
-                                <a class="nav-link" href="/Admin/Customers">
-                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-people-group"></i></div>
-                                    Müşteriler
-                                </a>
-                            }
-                            @if (User.IsInRole("Admin") || User.IsInRole("SatisTemsilcisi"))
-                            {
-                                <a class="nav-link" href="/Admin/Sales">
-                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i></div>
-                                    Satışlar
-                                </a>
-                            }
-                            @if (User.IsInRole("Admin") || User.IsInRole("ServisPersoneli"))
-                            {
-                                <a class="nav-link" href="/Admin/Services">
-                                    <div class="sb-nav-link-icon"><i class="fa-brands fa-audible"></i></div>
-                                    Servisler
-                                </a>
-                            }
-                        </div>
+                        <div class="sb-sidenav-menu-heading">Menü</div>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link" href="/Admin/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Ana Ekran
+                            </a>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link" href="/Admin/Sliders">
+                                <div class="sb-nav-link-icon"><i class="fas fa-images"></i></div>
+                                Slider Yönetimi
+                            </a>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Rol Yönetimi
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="/Admin/Roles">Roller</a>
+                                    <a class="nav-link" href="/Admin/Roles/Create">Rol Ekle</a>
+                                </nav>
+                            </div>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link" href="/Admin/Users">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                                Kullanıcılar
+                            </a>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link" href="/Admin/Brands">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-copyright"></i></div>
+                                Markalar
+                            </a>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link" href="/Admin/Cars">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-car"></i></div>
+                                Araçlar
+                            </a>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("SatisTemsilcisi"))
+                        {
+                            <a class="nav-link" href="/Admin/Customers">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-people-group"></i></div>
+                                Müşteriler
+                            </a>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("SatisTemsilcisi"))
+                        {
+                            <a class="nav-link" href="/Admin/Sales">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                                Satışlar
+                            </a>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("ServisPersoneli"))
+                        {
+                            <a class="nav-link" href="/Admin/Services">
+                                <div class="sb-nav-link-icon"><i class="fa-brands fa-audible"></i></div>
+                                Servisler
+                            </a>
+                        }
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -265,26 +136,33 @@
         <div id="layoutSidenav_content">
             <main role="main" class="pb-3">
                 <div class="container-fluid px-4">
-                    <div>
-                        @RenderBody()
-                    </div>
+                    @RenderBody()
                 </div>
             </main>
         </div>
     </div>
 
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="/admin/js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="/admin/assets/demo/chart-area-demo.js"></script>
-    <script src="/admin/assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="/admin/js/datatables-simple-demo.js"></script>
-    -->
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin/js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="/admin/js/datatables-simple-demo.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Oturumu Kapat Handler SADECE -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutLink = document.querySelector('a[href="/Admin/Login/Logout"]');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = '/Admin/Login/Logout';
+                });
+            }
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

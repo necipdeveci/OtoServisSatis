@@ -55,7 +55,7 @@
                 </form>
                 <div class="d-flex align-items-center gap-2">
                     <button class="btn btn-sm theme-toggle-btn" type="button" title="Tema Değiştir">
-                        <i class="bi bi-moon-stars-fill"></i>
+                        <i class="bi bi-moon-stars"></i>
                     </button>
                     <div class="text-end">
                         @if (Context.User.Identity.IsAuthenticated)
@@ -96,6 +96,23 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Dinamik İkon Değişimi -->
+    <script>
+        window.addEventListener('themeChange', function(e) {
+            const btn = document.querySelector('.theme-toggle-btn');
+            if (btn) {
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    if (e.detail.theme === 'light') {
+                        icon.className = 'bi bi-sun-fill';
+                    } else {
+                        icon.className = 'bi bi-moon-stars';
+                    }
+                }
+            }
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
