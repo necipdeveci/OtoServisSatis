@@ -164,3 +164,10 @@ if (document.readyState === 'loading') {
 } else {
     window.themeManager = new ThemeManager();
 }
+
+// wwwroot/js/site.js
+function showLoginToast() {
+    var toastEl = document.getElementById('loginToast');
+    var toast = new bootstrap.Toast(toastEl);
+    toast.show();
+}

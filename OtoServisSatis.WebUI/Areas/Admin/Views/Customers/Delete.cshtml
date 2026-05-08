@@ -1,69 +1,84 @@
 ﻿@model OtoServisSatis.Entities.Musteri
 
 @{
-    ViewData["Title"] = "Sil";
+    ViewData["Title"] = "Müşteri Sil";
 }
 
-<h1>Sil</h1>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Müşteri Sil</h1>
+        <p class="crud-page-description">Bu işlem geri alınamaz</p>
+    </div>
 
-<h3>Silmek istiyor musunuz?</h3>
-<div>
-    <h4>Muşteri</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Adi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Adi)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Soyadi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Soyadi)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TcNo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TcNo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Adres)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Adres)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefon)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Telefon)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Notlar)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Notlar)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Arac)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Arac.KasaTipi)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Sil" class="btn btn-danger" /> |
-        <a asp-action="Index">Listeye Dön</a>
-    </form>
+    <div class="crud-detail-card">
+        <div class="crud-detail-header">
+            <h2 class="crud-detail-title">Silmek istediğiniz müşteri bilgileri</h2>
+        </div>
+
+        <div class="crud-confirmation-alert">
+            <h4><i class="fas fa-exclamation-triangle"></i> Uyarı</h4>
+            <p>Bu müşteri silinecek. Bu işlem geri alınamaz ve müşteriyle ilişkili tüm veriler de silinecektir.</p>
+        </div>
+
+        <div class="crud-detail-grid">
+            <div class="crud-detail-item">
+                <div class="crud-detail-label">Ad Soyadı</div>
+                <div class="crud-detail-value">
+                    <strong>@Html.DisplayFor(model => model.Adi) @Html.DisplayFor(model => model.Soyadi)</strong>
+                </div>
+            </div>
+
+            <div class="crud-detail-item">
+                <div class="crud-detail-label">@Html.DisplayNameFor(model => model.TcNo)</div>
+                <div class="crud-detail-value">@Html.DisplayFor(model => model.TcNo)</div>
+            </div>
+
+            <div class="crud-detail-item">
+                <div class="crud-detail-label">@Html.DisplayNameFor(model => model.Email)</div>
+                <div class="crud-detail-value">@Html.DisplayFor(model => model.Email)</div>
+            </div>
+
+            <div class="crud-detail-item">
+                <div class="crud-detail-label">@Html.DisplayNameFor(model => model.Telefon)</div>
+                <div class="crud-detail-value">@Html.DisplayFor(model => model.Telefon)</div>
+            </div>
+
+            <div class="crud-detail-item">
+                <div class="crud-detail-label">@Html.DisplayNameFor(model => model.Adres)</div>
+                <div class="crud-detail-value">@Html.DisplayFor(model => model.Adres)</div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.Notlar))
+            {
+                <div class="crud-detail-item">
+                    <div class="crud-detail-label">@Html.DisplayNameFor(model => model.Notlar)</div>
+                    <div class="crud-detail-value">@Html.DisplayFor(model => model.Notlar)</div>
+                </div>
+            }
+
+            @if (Model.Arac != null)
+            {
+                <div class="crud-detail-item">
+                    <div class="crud-detail-label">@Html.DisplayNameFor(model => model.Arac)</div>
+                    <div class="crud-detail-value">@Html.DisplayFor(model => model.Arac.Modeli)</div>
+                </div>
+            }
+        </div>
+
+        <form asp-action="Delete" class="crud-confirmation-actions">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Sil
+            </button>
+            <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> İptal
+            </a>
+        </form>
+    </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

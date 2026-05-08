@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OtoServisSatis.Entities;
 using OtoServisSatis.Service.Abstract;
 using OtoServisSatis.WebUI.Models;
@@ -9,17 +10,20 @@ using System.Security.Claims;
 
 namespace OtoServisSatis.WebUI.Controllers
 {
+    [Authorize(Policy = "AdminPagePolicy")]
     public class AccountController : Controller
     {
         private readonly IUserService _service;
         private readonly IService<Rol> _serviceRol;
+        private readonly IService<Servis> _servisService;
 
-        public AccountController(IUserService service, IService<Rol> serviceRol)
+        public AccountController(IUserService service, IService<Rol> serviceRol, IService<Servis> servisService)
         {
             _service = service;
             _serviceRol = serviceRol;
+            _servisService = servisService;
         }
-        [Authorize(Policy = "CustomerPolicy")]
+
         public IActionResult Index()
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
@@ -67,10 +71,14 @@ namespace OtoServisSatis.WebUI.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> RegisterAsync(Kullanici kullanici)
         {
@@ -97,50 +105,14 @@ namespace OtoServisSatis.WebUI.Controllers
             }
             return View();
         }
+
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
-        /*[HttpPost]
-        public async Task<IActionResult> LoginAsync(CustomerLoginViewModel customerViewModel)
-        {
-            try
-            {
-                var account = await _service.GetAsync(k => k.Email == customerViewModel.Email && k.Sifre == customerViewModel.Sifre && k.AktifMi == true);
-                if (account == null)
-                {
-                    ModelState.AddModelError("", "Giriş Başarısız!");
-                }
-                else
-                {
-                    var rol = _serviceRol.Get(r => r.Id == account.RolId);
-                    var claims = new List<Claim>()
-                    {
-                        new Claim(ClaimTypes.Name, account.Adi),
-                        new Claim(ClaimTypes.Email, account.Email),
-                        new Claim(ClaimTypes.UserData, account.UserGuid.ToString())
-                    };
-                    if (rol is not null)
-                    {
-                        claims.Add(new Claim(ClaimTypes.Role, rol.Adi));
-                    }
-                    var userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                    await HttpContext.SignInAsync(principal);
-                    if (rol.Adi == "Admin")
-                    {
-                        return Redirect("/Admin");
-                    }
-                    return Redirect("/Account");
-                }
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError("", "Hata Oluştu!");
-            }
-            return View();
-        }
-        */
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> LoginAsync(CustomerLoginViewModel customerViewModel)
         {
@@ -173,8 +145,11 @@ namespace OtoServisSatis.WebUI.Controllers
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                     await HttpContext.SignInAsync(principal);
 
-                    // Hepsi admin sayfasına gidecek
-                    return Redirect("/Admin");
+                    if (rol.Adi == "Admin" || rol.Adi == "SatisTemsilcisi" || rol.Adi == "ServisPersoneli")
+                    {
+                        return Redirect("/Admin");
+                    }
+                    return Redirect("/Account");
                 }
             }
             catch (Exception)
@@ -183,10 +158,23 @@ namespace OtoServisSatis.WebUI.Controllers
             }
             return View();
         }
+
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
             return Redirect("/");
+        }
+
+        public IActionResult PlakaSorgula(string plaka)
+        {
+            if (string.IsNullOrEmpty(plaka))
+                return View("Index");
+
+            var servisKaydi = _servisService.GetAll()
+                .FirstOrDefault(s => s.AracPlaka.ToLower() == plaka.ToLower());
+
+            ViewBag.ServisKaydi = servisKaydi;
+            return View("Index");
         }
     }
 }

@@ -63,7 +63,7 @@
                     @Html.DisplayFor(modelItem => item.AracSorunu)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ServisUcreti)
+                    ₺@item.ServisUcreti.ToString("N0")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ServistenCikisTarihi)

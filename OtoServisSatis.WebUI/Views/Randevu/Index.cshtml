@@ -1,0 +1,148 @@
+﻿@model OtoServisSatis.Entities.Randevu
+@{
+    ViewData["Title"] = "Randevu Oluştur";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2>Randevu Oluştur</h2>
+
+            <form method="post" asp-action="Create" asp-controller="Randevu">
+                <div class="mb-3">
+                    <label asp-for="TalepTipi" class="form-label">Talep Tipi</label>
+                    <select asp-for="TalepTipi" class="form-select" id="talepTipiSelect">
+                        <option value="">Seçiniz...</option>
+                        <option value="1">Servis Talebi</option>
+                        <option value="2">Satış Talebi</option>
+                    </select>
+                    <span asp-validation-for="TalepTipi" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Ad" class="form-label">Adı</label>
+                    <input asp-for="Ad" class="form-control" required />
+                    <span asp-validation-for="Ad" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Soyad" class="form-label">Soyadı</label>
+                    <input asp-for="Soyad" class="form-control" required />
+                    <span asp-validation-for="Soyad" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Plaka" class="form-label">Plaka</label>
+                    <input asp-for="Plaka" id="plakaInput" class="form-control" placeholder="34ABC123" required />
+                    <span asp-validation-for="Plaka" class="text-danger"></span>
+                    <small class="form-text text-muted" id="plakaStatus"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AracMarka" class="form-label">Araç Markası</label>
+                    <input asp-for="AracMarka" id="aracMarkaInput" class="form-control" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AracModel" class="form-label">Araç Modeli</label>
+                    <input asp-for="AracModel" id="aracModelInput" class="form-control" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AracKasaTipi" class="form-label">Kasa Tipi</label>
+                    <input asp-for="AracKasaTipi" id="aracKasaTipiInput" class="form-control" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Tarih" class="form-label">Randevu Tarihi</label>
+                    <input asp-for="Tarih" type="datetime-local" class="form-control" required />
+                    <span asp-validation-for="Tarih" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3" id="talepNotuDiv" style="display:none;">
+                    <label asp-for="TalepNotu" class="form-label" id="talepNotuLabel">Talep Notu</label>
+                    <textarea asp-for="TalepNotu" class="form-control" rows="3" placeholder="Detaylarını giriniz..."></textarea>
+                    <span asp-validation-for="TalepNotu" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3" id="butceDiv" style="display:none;">
+                    <label asp-for="Butce" class="form-label">Bütçe (Satış için)</label>
+                    <input asp-for="Butce" type="number" step="0.01" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Randevu Oluştur</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const talepLabels = {
+            '1': 'Sorun Açıklaması',
+            '2': 'Ek İstekler veya Özel Talepler'
+        };
+
+        // Talep Tipi değiştiğinde bütçe alanını ve talep notu başlığını güncelle
+        document.getElementById('talepTipiSelect').addEventListener('change', function() {
+            const butceDiv = document.getElementById('butceDiv');
+            const talepNotuDiv = document.getElementById('talepNotuDiv');
+            const talepNotuLabel = document.getElementById('talepNotuLabel');
+
+            if (this.value === '2') {
+                butceDiv.style.display = 'block';
+                talepNotuDiv.style.display = 'block';
+                talepNotuLabel.textContent = talepLabels['2'];
+            } else if (this.value === '1') {
+                butceDiv.style.display = 'none';
+                talepNotuDiv.style.display = 'block';
+                talepNotuLabel.textContent = talepLabels['1'];
+            } else {
+                butceDiv.style.display = 'none';
+                talepNotuDiv.style.display = 'none';
+            }
+        });
+
+        // Plaka yazıldığında araç bilgilerini çek
+        document.getElementById('plakaInput').addEventListener('change', async function() {
+            const plaka = this.value.trim();
+            const statusEl = document.getElementById('plakaStatus');
+
+            if (!plaka) {
+                clearCarFields();
+                statusEl.textContent = '';
+                return;
+            }
+
+            try {
+                statusEl.textContent = 'Aranıyor...';
+                const response = await fetch(`/api/randevu/get-car-info?plaka=${encodeURIComponent(plaka)}`);
+                const result = await response.json();
+
+                if (result.success) {
+                    document.getElementById('aracMarkaInput').value = result.data.marka;
+                    document.getElementById('aracModelInput').value = result.data.model;
+                    document.getElementById('aracKasaTipiInput').value = result.data.kasaTipi;
+                    statusEl.textContent = '✓ Araç bilgileri yüklendi';
+                    statusEl.classList.add('text-success');
+                } else {
+                    clearCarFields();
+                    statusEl.textContent = '✗ Araç bulunamadı. Manuel olarak giriniz.';
+                    statusEl.classList.remove('text-success');
+                    statusEl.classList.add('text-warning');
+                }
+            } catch (error) {
+                clearCarFields();
+                statusEl.textContent = '✗ Hata oluştu: ' + error.message;
+                statusEl.classList.remove('text-success');
+                statusEl.classList.add('text-danger');
+            }
+        });
+
+        function clearCarFields() {
+            document.getElementById('aracMarkaInput').value = '';
+            document.getElementById('aracModelInput').value = '';
+            document.getElementById('aracKasaTipiInput').value = '';
+        }
+    </script>
+}

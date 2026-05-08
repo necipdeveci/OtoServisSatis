@@ -4,75 +4,92 @@
     ViewData["Title"] = "Müşteriler";
 }
 
-<h1>Müşteriler</h1>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Müşteriler</h1>
+        <p class="crud-page-description">Müşteri ve iletişim bilgilerini yönetin</p>
+    </div>
 
-<p>
-    <a class="btn btn-outline-primary" asp-action="Create">Yeni Ekle</a>
+    <div class="crud-table-wrapper">
+        <div class="crud-table-header">
+            <h2 class="crud-table-title">Müşteri Listesi</h2>
+            <div class="crud-table-actions">
+                <a class="btn btn-primary" asp-action="Create">
+                    <i class="fas fa-plus"></i> Yeni Müşteri
+                </a>
+            </div>
+        </div>
 
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Adi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Soyadi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TcNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Adres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Notlar)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Arac)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+        @if (Model.Any())
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Soyadi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TcNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adres)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefon)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Notlar)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Arac.Modeli)
-                </td>
-                <td>
-                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
-                </td>
-            </tr>
+            <div class="table-responsive">
+                <table class="crud-table table">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Adi)</th>
+                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Soyadi)</th>
+                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Email)</th>
+                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Telefon)</th>
+                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().TcNo)</th>
+                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Arac)</th>
+                            <th class="crud-table-col-actions">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@Html.DisplayFor(modelItem => item.Adi)</strong>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Soyadi)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telefon)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TcNo)
+                                </td>
+                                <td>
+                                    @if (item.Arac != null)
+                                    {
+                                        <span class="badge bg-secondary">@Html.DisplayFor(modelItem => item.Arac.Modeli)</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="crud-table-actions-cell">
+                                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id" title="Düzenle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id" title="Sil">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         }
-    </tbody>
-</table>
+        else
+        {
+            <div class="crud-empty-state">
+                <div class="crud-empty-state-icon">👥</div>
+                <h3 class="crud-empty-state-title">Müşteri Bulunamadı</h3>
+                <p class="crud-empty-state-description">Henüz hiç müşteri eklenmemiş. Başlamak için yeni bir müşteri ekleyin.</p>
+                <a class="btn btn-primary crud-empty-state-action" asp-action="Create">
+                    <i class="fas fa-plus"></i> İlk Müşteriyi Ekle
+                </a>
+            </div>
+        }
+    </div>
+</div>

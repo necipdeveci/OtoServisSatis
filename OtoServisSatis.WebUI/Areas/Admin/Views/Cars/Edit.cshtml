@@ -4,87 +4,159 @@
     ViewData["Title"] = "Araç Düzenle";
 }
 
-<h1>Araç Düzenle</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="Resim1" />
-            <input type="hidden" asp-for="Resim2" />
-            <input type="hidden" asp-for="Resim3" />
-            <div class="form-group">
-                <label asp-for="MarkaId" class="control-label"></label>
-                <select asp-for="MarkaId" class="form-control" asp-items="ViewBag.MarkaId"></select>
-                <span asp-validation-for="MarkaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Renk" class="control-label"></label>
-                <input asp-for="Renk" class="form-control" />
-                <span asp-validation-for="Renk" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Fiyati" class="control-label"></label>
-                <input asp-for="Fiyati" class="form-control" />
-                <span asp-validation-for="Fiyati" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Modeli" class="control-label"></label>
-                <input asp-for="Modeli" class="form-control" />
-                <span asp-validation-for="Modeli" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KasaTipi" class="control-label"></label>
-                <input asp-for="KasaTipi" class="form-control" />
-                <span asp-validation-for="KasaTipi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModelYili" class="control-label"></label>
-                <input asp-for="ModelYili" class="form-control" />
-                <span asp-validation-for="ModelYili" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SatistaMi" /> @Html.DisplayNameFor(model => model.SatistaMi)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Anasayfa" /> @Html.DisplayNameFor(model => model.Anasayfa)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Notlar" class="control-label"></label>
-                <input asp-for="Notlar" class="form-control" />
-                <span asp-validation-for="Notlar" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Resim1" class="control-label"></label>
-                <input asp-for="Resim1" class="form-control" type="file" />
-                <span asp-validation-for="Resim1" class="text-danger"></span>
-                <img src="/Img/Cars/@Model.Resim1" alt="Alternate Text" height="34" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Resim2" class="control-label"></label>
-                <input asp-for="Resim2" class="form-control" type="file" />
-                <span asp-validation-for="Resim2" class="text-danger"></span>
-                <img src="/Img/Cars/@Model.Resim2" alt="Alternate Text" height="34" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Resim3" class="control-label"></label>
-                <input asp-for="Resim3" class="form-control" type="file" />
-                <span asp-validation-for="Resim3" class="text-danger"></span>
-                <img src="/Img/Cars/@Model.Resim3" alt="Alternate Text" height="34" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Araç Düzenle</h1>
+        <p class="crud-page-description">Araç bilgilerini güncelleyin</p>
     </div>
-</div>
 
+    <form asp-action="Edit" enctype="multipart/form-data" class="crud-form-card">
+        <div asp-validation-summary="All" class="crud-validation-summary"></div>
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Resim1" />
+        <input type="hidden" asp-for="Resim2" />
+        <input type="hidden" asp-for="Resim3" />
+
+        <!-- Temel Bilgiler Bölümü -->
+        <div class="crud-form-section">
+            <h3 class="crud-form-section-title">Temel Bilgiler</h3>
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="MarkaId">Marka <span class="required">*</span></label>
+                    <select asp-for="MarkaId" class="form-select" asp-items="ViewBag.MarkaId">
+                        <option value="">-- Seçiniz --</option>
+                    </select>
+                    <span asp-validation-for="MarkaId" class="crud-validation-error"></span>
+                </div>
+
+                <div class="crud-form-group">
+                    <label asp-for="Plaka">Plaka <span class="required">*</span></label>
+                    <input asp-for="Plaka" class="form-control" style="text-transform: uppercase;" />
+                    <span asp-validation-for="Plaka" class="crud-validation-error"></span>
+                </div>
+            </div>
+
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="Modeli">Model <span class="required">*</span></label>
+                    <input asp-for="Modeli" class="form-control" />
+                    <span asp-validation-for="Modeli" class="crud-validation-error"></span>
+                </div>
+
+                <div class="crud-form-group">
+                    <label asp-for="ModelYili">Model Yılı <span class="required">*</span></label>
+                    <input asp-for="ModelYili" class="form-control" type="number" />
+                    <span asp-validation-for="ModelYili" class="crud-validation-error"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Araç Özellikleri Bölümü -->
+        <div class="crud-form-section">
+            <h3 class="crud-form-section-title">Araç Özellikleri</h3>
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="Renk">Renk <span class="required">*</span></label>
+                    <input asp-for="Renk" class="form-control" />
+                    <span asp-validation-for="Renk" class="crud-validation-error"></span>
+                </div>
+
+                <div class="crud-form-group">
+                    <label asp-for="KasaTipi">Kasa Tipi <span class="required">*</span></label>
+                    <input asp-for="KasaTipi" class="form-control" />
+                    <span asp-validation-for="KasaTipi" class="crud-validation-error"></span>
+                </div>
+            </div>
+
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="Fiyati">Fiyat (₺) <span class="required">*</span></label>
+                    <input asp-for="Fiyati" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="Fiyati" class="crud-validation-error"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resimler Bölümü -->
+        <div class="crud-form-section">
+            <h3 class="crud-form-section-title">Resimler</h3>
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="Resim1">Resim 1</label>
+                    <input asp-for="Resim1" class="form-control" type="file" accept="image/*" />
+                    <span asp-validation-for="Resim1" class="crud-validation-error"></span>
+                    @if (!string.IsNullOrEmpty(Model.Resim1))
+                    {
+                        <img src="/Img/Cars/@Model.Resim1" alt="Resim 1" style="max-width: 100px; margin-top: 0.5rem; border-radius: 0.25rem;" />
+                    }
+                </div>
+
+                <div class="crud-form-group">
+                    <label asp-for="Resim2">Resim 2</label>
+                    <input asp-for="Resim2" class="form-control" type="file" accept="image/*" />
+                    <span asp-validation-for="Resim2" class="crud-validation-error"></span>
+                    @if (!string.IsNullOrEmpty(Model.Resim2))
+                    {
+                        <img src="/Img/Cars/@Model.Resim2" alt="Resim 2" style="max-width: 100px; margin-top: 0.5rem; border-radius: 0.25rem;" />
+                    }
+                </div>
+
+                <div class="crud-form-group">
+                    <label asp-for="Resim3">Resim 3</label>
+                    <input asp-for="Resim3" class="form-control" type="file" accept="image/*" />
+                    <span asp-validation-for="Resim3" class="crud-validation-error"></span>
+                    @if (!string.IsNullOrEmpty(Model.Resim3))
+                    {
+                        <img src="/Img/Cars/@Model.Resim3" alt="Resim 3" style="max-width: 100px; margin-top: 0.5rem; border-radius: 0.25rem;" />
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Notlar ve Durumu Bölümü -->
+        <div class="crud-form-section">
+            <h3 class="crud-form-section-title">Ek Bilgiler</h3>
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="Notlar">Notlar</label>
+                    <textarea asp-for="Notlar" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Notlar" class="crud-validation-error"></span>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <div class="crud-form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" asp-for="SatistaMi" />
+                        <label class="form-check-label" asp-for="SatistaMi">
+                            @Html.DisplayNameFor(model => model.SatistaMi)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="crud-form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" asp-for="Anasayfa" />
+                        <label class="form-check-label" asp-for="Anasayfa">
+                            @Html.DisplayNameFor(model => model.Anasayfa)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="crud-form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Kaydet
+            </button>
+            <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                <i class="fas fa-times"></i> İptal
+            </a>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
     @{

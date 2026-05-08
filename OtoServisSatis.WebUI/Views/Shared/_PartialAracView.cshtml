@@ -1,27 +1,35 @@
 ﻿@model IEnumerable<Arac>
 
-
 @foreach (var item in Model)
 {
     <div class="col mb-5">
         <div class="card h-100" style="min-height: 420px; display: flex; flex-direction: column;">
             <div class="badge position-absolute" style="top: 0.5rem; right: 0.5rem;">
-                <form action="/Favorites/Add" method="post">
-                    <input type="hidden" name="aracId" value="@item.Id" />
-                    <button type="submit" class="btn btn-outline-light mt-2">
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <form action="/Favorites/Add" method="post">
+                        <input type="hidden" name="aracId" value="@item.Id" />
+                        <button type="submit" class="btn btn-outline-light mt-2" title="Favorilere Ekle">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-outline-light mt-2"
+                            onclick="showLoginToast()"
+                            title="Oturum açınız">
                         <i class="bi bi-heart"></i>
                     </button>
-                </form>
+                }
             </div>
             <a class="btn mt-auto" href="/Arac/Index/@item.Id" style="display: flex; flex-direction: column; text-decoration: none; height: 100%;">
-                <!-- Product image-->
                 <img class="card-img-top" src="/Img/Cars/@item.Resim1" alt="..." style="height: 250px; object-fit: cover;">
-                <!-- Product details-->
                 <div class="card-body p-4 d-flex flex-column justify-content-center">
                     <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder" style="min-height: 2.8rem; display: flex; align-items: center; justify-content: center;">@item.Marka.Adi @item.Modeli @item.KasaTipi</h5>
-                        <!-- Product price-->
+                        <h5 class="fw-bolder" style="min-height: 2.8rem; display: flex; align-items: center; justify-content: center;">
+                            @item.Marka.Adi @item.Modeli @item.KasaTipi
+                        </h5>
                         <span>₺@item.Fiyati.ToString("N0")</span>
                     </div>
                 </div>
@@ -29,3 +37,15 @@
         </div>
     </div>
 }
+
+<!-- Toast Uyarı Kutusu: Sadece bir kez eklenir -->
+<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1100;">
+    <div id="loginToast" class="toast align-items-center text-bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Favorilere araç eklemek için lütfen oturum açın.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Kapat"></button>
+        </div>
+    </div>
+</div>

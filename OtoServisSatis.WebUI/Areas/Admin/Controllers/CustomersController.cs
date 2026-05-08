@@ -54,9 +54,9 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                     await _service.SaveAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "Hata oluştu.");
+                    ModelState.AddModelError("", $"Hata: {ex.Message}");
                 }
             }
             ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "Modeli");

@@ -4,59 +4,111 @@
     ViewData["Title"] = "Müşteri Ekle";
 }
 
-<h1>Müşteri Ekle</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="AracId" class="control-label"></label>
-                <select asp-for="AracId" class ="form-select" asp-items="ViewBag.AracId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adi" class="control-label"></label>
-                <input asp-for="Adi" class="form-control" />
-                <span asp-validation-for="Adi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Soyadi" class="control-label"></label>
-                <input asp-for="Soyadi" class="form-control" />
-                <span asp-validation-for="Soyadi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TcNo" class="control-label"></label>
-                <input asp-for="TcNo" class="form-control" />
-                <span asp-validation-for="TcNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adres" class="control-label"></label>
-                <input asp-for="Adres" class="form-control" />
-                <span asp-validation-for="Adres" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefon" class="control-label"></label>
-                <input asp-for="Telefon" class="form-control" />
-                <span asp-validation-for="Telefon" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Notlar" class="control-label"></label>
-                <input asp-for="Notlar" class="form-control" />
-                <span asp-validation-for="Notlar" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Ekle" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Yeni Müşteri Ekle</h1>
+        <p class="crud-page-description">Sisteme yeni bir müşteri kaydı oluşturun</p>
     </div>
+
+    <form asp-action="Create" method="post" class="crud-form-card">
+        <div asp-validation-summary="All" class="crud-validation-summary"></div>
+
+        <!-- Araç Seçimi Bölümü -->
+        <div class="crud-form-section">
+            <h3 class="crud-form-section-title">Araç Bilgisi</h3>
+
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="AracId">Araç <span class="required">*</span></label>
+                    <select asp-for="AracId" asp-items="(SelectList)ViewBag.AracId" class="form-control">
+                        <option value="">-- Araç Seçiniz --</option>
+                    </select>
+                    <span asp-validation-for="AracId" class="crud-validation-error"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kişisel Bilgiler Bölümü -->
+        <div class="crud-form-section">
+            <h3 class="crud-form-section-title">Kişisel Bilgiler</h3>
+
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="Adi">Ad <span class="required">*</span></label>
+                    <input asp-for="Adi" class="form-control" placeholder="Örn: Ahmet" />
+                    <span asp-validation-for="Adi" class="crud-validation-error"></span>
+                </div>
+
+                <div class="crud-form-group">
+                    <label asp-for="Soyadi">Soyadı <span class="required">*</span></label>
+                    <input asp-for="Soyadi" class="form-control" placeholder="Örn: Yılmaz" />
+                    <span asp-validation-for="Soyadi" class="crud-validation-error"></span>
+                </div>
+            </div>
+
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="TcNo">TC Numarası <span class="required">*</span></label>
+                    <input asp-for="TcNo" class="form-control" placeholder="Örn: 12345678901" inputmode="numeric" />
+                    <span asp-validation-for="TcNo" class="crud-validation-error"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- İletişim Bilgileri Bölümü -->
+        <div class="crud-form-section">
+            <h3 class="crud-form-section-title">İletişim Bilgileri</h3>
+
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="Email">E-posta <span class="required">*</span></label>
+                    <input asp-for="Email" class="form-control" type="email" placeholder="Örn: ahmet@example.com" />
+                    <span asp-validation-for="Email" class="crud-validation-error"></span>
+                </div>
+
+                <div class="crud-form-group">
+                    <label asp-for="Telefon">Telefon <span class="required">*</span></label>
+                    <input asp-for="Telefon" class="form-control" type="tel" placeholder="Örn: 0532 123 4567" />
+                    <span asp-validation-for="Telefon" class="crud-validation-error"></span>
+                </div>
+            </div>
+
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="Adres">Adres <span class="required">*</span></label>
+                    <input asp-for="Adres" class="form-control" placeholder="Tam adres girin" />
+                    <span asp-validation-for="Adres" class="crud-validation-error"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ek Bilgiler Bölümü -->
+        <div class="crud-form-section">
+            <h3 class="crud-form-section-title">Ek Bilgiler</h3>
+
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="Notlar">Notlar</label>
+                    <textarea asp-for="Notlar" class="form-control" rows="3" placeholder="Müşteri hakkında ek notlar..."></textarea>
+                    <span asp-validation-for="Notlar" class="crud-validation-error"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="crud-form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Müşteri Ekle
+            </button>
+            <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Geri
+            </a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

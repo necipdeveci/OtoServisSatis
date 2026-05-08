@@ -48,6 +48,9 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Favorites" asp-action="Index">Favorilerim</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Randevu" asp-action="Index">Randevu Oluştur</a>
+                        </li>
                     </ul>
                 </div>
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" asp-action="Ara" asp-controller="Arac" method="get">
@@ -117,3 +120,14 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+@section Scripts {
+    <script>
+        function showLoginToast() {
+            var toastEl = document.getElementById('loginToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    </script>
+}

@@ -11,5 +11,7 @@ namespace OtoServisSatis.Data.Abstract
         Task<List<Arac>> GetCustomCarList();
         Task<List<Arac>> GetCustomCarList(Expression<Func<Arac, bool>> expression);
         Task<Arac> GetCustomCar(int id);
+        // Mevcut interface'e ekleyin:
+        Task<Arac> GetCarByPlaka(string plaka);
     }
 }

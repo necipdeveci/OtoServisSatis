@@ -4,32 +4,65 @@
     ViewData["Title"] = "Markalar";
 }
 
-<h1>Markalar</h1>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Markalar</h1>
+        <p class="crud-page-description">Araç markalarını yönetin</p>
+    </div>
 
-<p>
-    <a class="btn btn-outline-primary" asp-action="Create">Yeni Ekle</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Adi)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+    <div class="crud-table-wrapper">
+        <div class="crud-table-header">
+            <h2 class="crud-table-title">Marka Listesi</h2>
+            <div class="crud-table-actions">
+                <a class="btn btn-primary" asp-action="Create">
+                    <i class="fas fa-plus"></i> Yeni Marka
+                </a>
+            </div>
+        </div>
+
+        @if (Model.Any())
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adi)
-                </td>
-                <td>
-                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
-                </td>
-            </tr>
+            <div class="table-responsive">
+                <table class="crud-table table">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Adi)</th>
+                            <th class="crud-table-col-actions">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@Html.DisplayFor(modelItem => item.Adi)</strong>
+                                </td>
+                                <td>
+                                    <div class="crud-table-actions-cell">
+                                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id" title="Düzenle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id" title="Sil">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         }
-    </tbody>
-</table>
+        else
+        {
+            <div class="crud-empty-state">
+                <div class="crud-empty-state-icon">📋</div>
+                <h3 class="crud-empty-state-title">Marka Bulunamadı</h3>
+                <p class="crud-empty-state-description">Henüz hiç marka eklenmemiş. Başlamak için yeni bir marka ekleyin.</p>
+                <a class="btn btn-primary crud-empty-state-action" asp-action="Create">
+                    <i class="fas fa-plus"></i> İlk Markayı Ekle
+                </a>
+            </div>
+        }
+    </div>
+</div>

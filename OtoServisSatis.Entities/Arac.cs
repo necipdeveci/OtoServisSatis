@@ -1,16 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema; // ← BU SATIRI EKLE
 
 namespace OtoServisSatis.Entities
 {
     public class Arac : IEntity
     {
         public int Id { get; set; }
+
+        [StringLength(20), Display(Name = "Plaka")]
+        public string? Plaka { get; set; }
+
         [Display(Name = "Marka Adı"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public int MarkaId { get; set; }
         [StringLength(50), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Renk { get; set; }
         [Display(Name = "Fiyatı")]
-
         public decimal Fiyati { get; set; }
         [StringLength(50), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Modeli { get; set; }
@@ -37,6 +41,5 @@ namespace OtoServisSatis.Entities
         {
             get { return this.Renk + " " + this.Modeli + " " + this.KasaTipi; }
         }
-
     }
 }

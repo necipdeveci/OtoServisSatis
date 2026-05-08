@@ -49,4 +49,69 @@
             </div>
         </form>
     </div>
+    <div class="col-md-8">
+        <form asp-action="PlakaSorgula" method="get" class="mb-4 plaka-sorgu-card">
+            <h5>Servis Kaydı Sorgula</h5>
+            <div class="form-group">
+                <label for="plaka">Araç Plakası</label>
+                <input type="text" name="plaka" id="plaka" class="form-control" placeholder="Örn: 34ABC1234" required />
+            </div>
+            <button type="submit" class="btn btn-info mt-2">Servis Kaydını Göster</button>
+        </form>
+
+        @if (ViewBag.ServisKaydi != null)
+        {
+            <div class="servis-kaydi-sonuc">
+                <h5>Servis Kaydı Bulundu</h5>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Araç Plakası</th>
+                        <td>@ViewBag.ServisKaydi.AracPlaka</td>
+                    </tr>
+                    <tr>
+                        <th>Marka</th>
+                        <td>@ViewBag.ServisKaydi.Marka</td>
+                    </tr>
+                    <tr>
+                        <th>Model</th>
+                        <td>@ViewBag.ServisKaydi.Model</td>
+                    </tr>
+                    <tr>
+                        <th>Araç Sorunu</th>
+                        <td>@ViewBag.ServisKaydi.AracSorunu</td>
+                    </tr>
+                    <tr>
+                        <th>Servise Geliş Tarihi</th>
+                        <td>@ViewBag.ServisKaydi.ServiseGelisTarihi.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <th>Servisten Çıkış Tarihi</th>
+                        <td>@ViewBag.ServisKaydi.ServistenCikisTarihi.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <th>Yapılan İşlemler</th>
+                        <td>@ViewBag.ServisKaydi.YapilanIslemler</td>
+                    </tr>
+                    <tr>
+                        <th>Servis Ücreti</th>
+                        <td>@ViewBag.ServisKaydi.ServisUcreti.ToString("C2")</td>
+                    </tr>
+                    <tr>
+                        <th>Garanti Kapsamında</th>
+                        <td>@(ViewBag.ServisKaydi.GarantiKapsamindaMi ? "Evet" : "Hayır")</td>
+                    </tr>
+                    <tr>
+                        <th>Notlar</th>
+                        <td>@ViewBag.ServisKaydi.Notlar</td>
+                    </tr>
+                </table>
+            </div>
+        }
+        else if (Context.Request.Query.ContainsKey("plaka"))
+        {
+            <div class="servis-kaydi-sonuc alert alert-warning mt-3">
+                <strong>Uyarı!</strong> Belirtilen plakaya ait servis kaydı bulunamadı.
+            </div>
+        }
+    </div>
 </div>

@@ -29,5 +29,11 @@ namespace OtoServisSatis.Data.Concrete
         {
             return await _dbSet.Where(expression).AsNoTracking().Include(a => a.Marka).ToListAsync();
         }
+
+        // Mevcut implementasyona ekleyin:
+        public async Task<Arac> GetCarByPlaka(string plaka)
+        {
+            return await _dbSet.AsNoTracking().Include(a => a.Marka).FirstOrDefaultAsync(x => x.Plaka == plaka);
+        }
     }
 }
