@@ -1,20 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using OtoServisSatis.Entities;
 using OtoServisSatis.Service.Abstract;
 
 namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin"), Authorize(Policy = "ServisPersoneliPolicy")]
-
     public class ServicesController : Controller
     {
         private readonly IService<Servis> _service;
+        private readonly IService<Marka> _markaService;
 
-        public ServicesController(IService<Servis> service)
+        public ServicesController(IService<Servis> service, IService<Marka> markaService)
         {
             _service = service;
+            _markaService = markaService;
         }
 
         // GET: ServicesController
@@ -31,8 +33,10 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         }
 
         // GET: ServicesController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            var markalar = await _markaService.GetAllAsync();
+            ViewBag.Markalar = new SelectList(markalar, "Id", "Adi");
             return View();
         }
 
@@ -54,17 +58,21 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata oluştu.");
                 }
             }
+            var markalar = await _markaService.GetAllAsync();
+            ViewBag.Markalar = new SelectList(markalar, "Id", "Adi");
             return View(servis);
         }
 
-        // GET: ServicesController/Edit/5
+        // EditAsync metoduna da ekleyin
         public async Task<ActionResult> EditAsync(int id)
         {
             var model = await _service.FindAsync(id);
+            var markalar = await _markaService.GetAllAsync();
+            ViewBag.Markalar = new SelectList(markalar, "Id", "Adi");
             return View(model);
         }
 
-        // POST: ServicesController/Edit/5
+        // POST EditAsync
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditAsync(int id, Servis servis)
@@ -82,6 +90,8 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata oluştu.");
                 }
             }
+            var markalar = await _markaService.GetAllAsync();
+            ViewBag.Markalar = new SelectList(markalar, "Id", "Adi");
             return View(servis);
         }
 

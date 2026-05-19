@@ -153,14 +153,14 @@ namespace OtoServisSatis.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2026, 5, 8, 12, 43, 16, 925, DateTimeKind.Local).AddTicks(1684),
+                            EklenmeTarihi = new DateTime(2026, 5, 19, 23, 5, 14, 733, DateTimeKind.Local).AddTicks(6368),
                             Email = "admin@com",
                             KullaniciAdi = "admin",
                             RolId = 1,
                             Sifre = "123456",
                             Soyadi = "Admin",
                             Telefon = "1234567890",
-                            UserGuid = new Guid("f82893c6-7a72-40e4-b503-d48c17038cc2")
+                            UserGuid = new Guid("89085520-caec-4270-863c-8c9724532250")
                         });
                 });
 

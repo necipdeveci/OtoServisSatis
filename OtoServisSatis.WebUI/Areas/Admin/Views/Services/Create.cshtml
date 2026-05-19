@@ -27,7 +27,9 @@
             <!-- Marka -->
             <div class="admin-form-group">
                 <label asp-for="Marka" class="control-label">Marka *</label>
-                <input asp-for="Marka" class="form-control" placeholder="Örn: Toyota" />
+                <select asp-for="Marka" class="form-control" asp-items="@(ViewBag.Markalar as SelectList)">
+                    <option value="">-- Marka Seçiniz --</option>
+                </select>
                 <span asp-validation-for="Marka" class="admin-validation-error"></span>
             </div>
 

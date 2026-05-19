@@ -39,7 +39,7 @@ namespace OtoServisSatis.Entities
         [Display(Name = "Renk Model KasaTipi"), ScaffoldColumn(false)]
         public string? AracBilgi
         {
-            get { return this.Renk + " " + this.Modeli + " " + this.KasaTipi; }
+            get { return this.Marka.Adi + " " + this.Renk + " " + this.Modeli + " " + this.KasaTipi; }
         }
     }
 }
