@@ -1,0 +1,238 @@
+﻿@model OtoServisSatis.Entities.Satis
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satış Sözleşmesi - @Model.Id</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #333;
+            line-height: 1.2;
+            background: #f8f9fa;
+            margin: 0;
+        }
+
+        .contract-container {
+            max-width: 900px;
+            margin: 10px auto;
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 1px solid #2c3e50;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+            .header h1 {
+                margin: 0 0 5px 0;
+                color: #2c3e50;
+                font-size: 16px;
+            }
+
+            .header p {
+                margin: 0;
+                font-size: 11px;
+            }
+
+        .section {
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 13px;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
+            margin: 0 0 5px 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+
+        .info-item {
+            background: #fdfdfd;
+            padding: 5px;
+            border: 1px solid #eee;
+            font-size: 11px;
+            display: flex;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #555;
+            width: 65px;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            flex-grow: 1;
+        }
+
+        .section-content {
+            background: #fdfdfd;
+            padding: 5px;
+            border: 1px solid #eee;
+            font-size: 11px;
+        }
+
+            .section-content p {
+                margin: 0;
+            }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .signature-box {
+            width: 45%;
+            text-align: center;
+        }
+
+        .signature-title {
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            font-size: 12px;
+        }
+
+        .signature-name {
+            border-top: 1px solid #333;
+            padding-top: 5px;
+            font-size: 11px;
+        }
+
+        .btn-primary {
+            background: #0d6efd;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .no-print {
+            text-align: center;
+            padding: 10px;
+        }
+
+        @@media print {
+            @@page {
+                size: A4 portrait;
+                margin: 5mm;
+            }
+
+            body {
+                background: #fff;
+                padding: 0;
+                font-size: 10px;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .contract-container {
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+
+            .info-item, .section-content {
+                background: transparent !important;
+                border: 1px solid #ccc;
+            }
+
+            .section, .signatures {
+                page-break-inside: avoid;
+            }
+
+            .signature-title {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <button onclick="window.print()" class="btn-primary">Yazdır / PDF Kaydet</button>
+    </div>
+
+    <div class="contract-container">
+        <div class="header">
+            <h1>ARAÇ SATIŞ SÖZLEŞMESİ</h1>
+            <p><strong>Tarih:</strong> @Model.SatisTarihi.ToString("dd.MM.yyyy HH:mm")</p>
+        </div>
+
+        <div class="section">
+            <h5 class="section-title">1. TARAFLAR</h5>
+            <div class="info-grid">
+                <div class="info-item"><span class="info-label">Satıcı:</span><span class="info-value">Rota Motorlu Araçlar San. Tic. Ltd. Şti.</span></div>
+                <div class="info-item"><span class="info-label">Alıcı:</span><span class="info-value">@Model.Musteri?.AdSoyad</span></div>
+                <div class="info-item"><span class="info-label">Adres:</span><span class="info-value">Melikgazi / Kayseri</span></div>
+                <div class="info-item"><span class="info-label">Adres:</span><span class="info-value">@Model.Musteri?.Adres</span></div>
+                <div class="info-item"><span class="info-label">VD/VKN:</span><span class="info-value">Mimarsinan VD. / 4580912345</span></div>
+                <div class="info-item"><span class="info-label">TC/VKN:</span><span class="info-value">@Model.Musteri?.TcNo</span></div>
+                <div class="info-item"><span class="info-label">İletişim:</span><span class="info-value">0999 444 2222 | necipdev@com</span></div>
+                <div class="info-item"><span class="info-label">İletişim:</span><span class="info-value">@Model.Musteri?.Telefon | @Model.Musteri?.Email</span></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h5 class="section-title">2. ARAÇ BİLGİLERİ</h5>
+            <div class="info-grid">
+                <div class="info-item"><span class="info-label">Araç:</span><span class="info-value">@Model.Arac?.AracBilgi</span></div>
+                <div class="info-item"><span class="info-label">Plaka:</span><span class="info-value">@Model.Arac?.Plaka</span></div>
+                <div class="info-item"><span class="info-label">Model:</span><span class="info-value">@Model.Arac?.ModelYili</span></div>
+                <div class="info-item"><span class="info-label">Şasi:</span><span class="info-value">........................</span></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h5 class="section-title">3. BEDEL VE ÖDEME</h5>
+            <div class="section-content">
+                <p>Satış bedeli <strong>₺@Model.SatisFiyati.ToString("N2")</strong> olarak belirlenmiş olup, alıcı tarafından satıcıya eksiksiz ödenmiştir.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h5 class="section-title">4. HÜKÜMLER</h5>
+            <div class="section-content">
+                <p>Alıcı, aracı halihazır durumu ile teslim almıştır. Bu tarihten sonra araca ait hukuki sorumluluk, trafik cezaları ve vergiler alıcıya aittir.</p>
+            </div>
+        </div>
+
+        <div class="signatures">
+            <div class="signature-box">
+                <div class="signature-title">SATICI</div>
+                <div class="signature-name">Rota Motorlu Araçlar Ltd. Şti.<br><span style="font-size:9px;">(Kaşe/İmza)</span></div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-title">ALICI</div>
+                <div class="signature-name">@Model.Musteri?.AdSoyad<br><span style="font-size:9px;">(İmza)</span></div>
+            </div>
+        </div>
+    </div>
+
+    @if (Context.Request.Query["autoPrint"] == "true")
+    {
+        <script>window.onload = function(){ window.print(); setTimeout(function(){ window.close(); }, 500); };</script>
+    }
+</body>
+</html>

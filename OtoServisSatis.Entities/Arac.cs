@@ -35,11 +35,27 @@ namespace OtoServisSatis.Entities
         public string? Resim2 { get; set; }
         [StringLength(100)]
         public string? Resim3 { get; set; }
+        // Arac.cs içerisine eklenecek kodlar:
+        [Display(Name = "Bakım Tarihi")]
+        public DateTime BakimTarihi { get; set; } = DateTime.Now.AddMinutes(2); // Test için 2 dakika sonrası. Gerçek senaryoda: DateTime.Now.AddYears(1)
+
+        [Display(Name = "Bakım Maili Gönderildi Mi?")]
+        public bool BakimMailiGonderildi { get; set; } = false; // Tekrar tekrar mail atmayı engellemek için
         public virtual Marka? Marka { get; set; }
+
+        [NotMapped]
         [Display(Name = "Renk Model KasaTipi"), ScaffoldColumn(false)]
         public string? AracBilgi
         {
-            get { return this.Marka.Adi + " " + this.Renk + " " + this.Modeli + " " + this.KasaTipi; }
+            get
+            {
+                var markaAdi = Marka?.Adi ?? string.Empty;
+                var renk = Renk ?? string.Empty;
+                var modeli = Modeli ?? string.Empty;
+                var kasa = KasaTipi ?? string.Empty;
+                var result = $"{markaAdi} {renk} {modeli} {kasa}".Trim();
+                return string.IsNullOrEmpty(result) ? null : result;
+            }
         }
     }
 }

@@ -4,103 +4,91 @@
     ViewData["Title"] = "Kullanıcılar";
 }
 
-<h1>Kullanıcılar</h1>
+<div class="crud-container">
+    <div class="crud-page-header d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="crud-page-title">Kullanıcılar</h1>
+            <p class="crud-page-description">Sistemde kayıtlı olan tüm kullanıcıları listeyebilir ve yönetebilirsiniz.</p>
+        </div>
 
-<p>
-    <a class="btn btn-outline-primary" asp-action="Create">Yeni Ekle</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Adi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Soyadi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KullaniciAdi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sifre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AktifMi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EklenmeTarihi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rol)
-            </th>
-            <th>
-                Favoriler
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Soyadi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefon)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.KullaniciAdi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sifre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AktifMi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EklenmeTarihi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rol.Adi)
-                </td>
-                <td>
-                    @{
-                        var favoriSayisi = 0;
-                        var favoriIdler = new List<int>();
-                        if (!string.IsNullOrEmpty(item.FavoriAraclarJson))
-                        {
-                            try
-                            {
-                                favoriIdler = System.Text.Json.JsonSerializer.Deserialize<List<int>>(item.FavoriAraclarJson) ?? new List<int>();
-                                favoriSayisi = favoriIdler.Count;
-                            }
-                            catch { favoriSayisi = 0; }
-                        }
-                    }
-                    @favoriSayisi adet
-                    @if (favoriIdler.Any())
+    </div>
+
+    <hr class="crud-divider" />
+
+    <div class="crud-table-wrapper">
+        <div class="crud-table-header">
+            <h5 class="crud-table-title">Tüm Kullanıcı Kayıtları</h5>
+            <div>
+                <a class="btn btn-primary" asp-action="Create">
+                    <i class="fas fa-plus"></i> Yeni Ekle
+                </a>
+            </div>
+        </div>
+        <div class="crud-table-scroll-wrapper">
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Adi)</th>
+                        <th>@Html.DisplayNameFor(model => model.Soyadi)</th>
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+                        <th>@Html.DisplayNameFor(model => model.Telefon)</th>
+                        <th>@Html.DisplayNameFor(model => model.KullaniciAdi)</th>
+                        <th>@Html.DisplayNameFor(model => model.Sifre)</th>
+                        <th>@Html.DisplayNameFor(model => model.AktifMi)</th>
+                        <th>@Html.DisplayNameFor(model => model.EklenmeTarihi)</th>
+                        <th>@Html.DisplayNameFor(model => model.Rol)</th>
+                        <th>Favoriler</th>
+                        <th class="crud-table-col-actions">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
                     {
-                        <span class="text-muted">(@string.Join(", ", favoriIdler))</span>
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Adi)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Soyadi)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Telefon)</td>
+                            <td>@Html.DisplayFor(modelItem => item.KullaniciAdi)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Sifre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.AktifMi)</td>
+                            <td>@Html.DisplayFor(modelItem => item.EklenmeTarihi)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Rol.Adi)</td>
+                            <td>
+                                @{
+                                    var favoriSayisi = 0;
+                                    var favoriIdler = new List<int>();
+                                    if (!string.IsNullOrEmpty(item.FavoriAraclarJson))
+                                    {
+                                        try
+                                        {
+                                            favoriIdler = System.Text.Json.JsonSerializer.Deserialize<List<int>>(item.FavoriAraclarJson) ?? new List<int>();
+                                            favoriSayisi = favoriIdler.Count;
+                                        }
+                                        catch { favoriSayisi = 0; }
+                                    }
+                                }
+                                @favoriSayisi adet
+                                @if (favoriIdler.Any())
+                                {
+                                    <span class="text-muted">(@string.Join(", ", favoriIdler))</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="crud-table-actions-cell">
+                                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id" title="Düzenle">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id" title="Sil">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
                     }
-                </td>
-                <td>
-                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-scroll-hint">Sağa doğru kaydırabilirsiniz <i class="fas fa-arrow-right"></i></div>
+    </div>
+</div>

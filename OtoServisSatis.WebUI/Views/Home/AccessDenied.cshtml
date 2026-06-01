@@ -1,9 +1,17 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Erişim Engellendi!";
 }
 
-<h1>Erişim Engellendi!</h1>
-
-<p>Bu sayfaya erişim izniniz yok.</p>
-
+<div class="crud-container d-flex align-items-center justify-content-center" style="min-height: 70vh;">
+    <div class="crud-form-card text-center" style="max-width: 500px; width: 100%;">
+        <div class="text-danger mb-3" style="font-size: 4rem; line-height: 1;">
+            <span style="font-weight: 300;">&times;</span>
+        </div>
+        <h1 class="crud-page-title mb-2">Erişim Engellendi!</h1>
+        <p class="crud-page-description mb-4">Bu sayfaya erişim yetkiniz bulunmamaktadır.</p>
+        <hr class="crud-divider" />
+        <div class="d-flex justify-content-center gap-2">
+            <a href="/" class="btn btn-primary">Ana Sayfaya Dön</a>
+        </div>
+    </div>
+</div>

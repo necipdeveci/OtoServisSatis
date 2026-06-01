@@ -4,64 +4,102 @@
     ViewData["Title"] = "Kullanıcı Düzenle";
 }
 
-<h1>Kullanıcı Düzenle</h1>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Kullanıcı Düzenle</h1>
+        <p class="crud-page-description">Mevcut kullanıcının yetki ve kişisel bilgilerini güncelleyin.</p>
+    </div>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <hr class="crud-divider" />
+
+    <div class="crud-form-card">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="crud-validation-summary"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="EklenmeTarihi" />
             <input type="hidden" asp-for="UserGuid" />
-            <div class="form-group">
-                <label asp-for="UserGuid" class="control-label"></label>
-                <br/>
-                @Model.UserGuid
+
+            <div class="crud-form-section">
+                <h5 class="crud-form-section-title"><i class="fas fa-id-badge"></i> Sistem Kimliği</h5>
+                <div class="crud-form-group mb-3">
+                    <label asp-for="UserGuid" class="control-label"></label>
+                    <div class="form-control-plaintext text-muted" style="padding-left: 0.5rem;">@Model.UserGuid</div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Adi" class="control-label"></label>
-                <input asp-for="Adi" class="form-control" />
-                <span asp-validation-for="Adi" class="text-danger"></span>
+
+            <div class="crud-form-section">
+                <h5 class="crud-form-section-title"><i class="fas fa-user-edit"></i> Bilgileri Güncelle</h5>
+
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="Adi" class="control-label"></label>
+                        <input asp-for="Adi" class="form-control" />
+                        <span asp-validation-for="Adi" class="crud-validation-error"></span>
+                    </div>
+                    <div class="crud-form-group">
+                        <label asp-for="Soyadi" class="control-label"></label>
+                        <input asp-for="Soyadi" class="form-control" />
+                        <span asp-validation-for="Soyadi" class="crud-validation-error"></span>
+                    </div>
+                </div>
+
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="crud-validation-error"></span>
+                    </div>
+                    <div class="crud-form-group">
+                        <label asp-for="Telefon" class="control-label"></label>
+                        <input asp-for="Telefon" class="form-control" />
+                        <span asp-validation-for="Telefon" class="crud-validation-error"></span>
+                    </div>
+                </div>
+
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="KullaniciAdi" class="control-label"></label>
+                        <input asp-for="KullaniciAdi" class="form-control" />
+                        <span asp-validation-for="KullaniciAdi" class="crud-validation-error"></span>
+                    </div>
+                    <div class="crud-form-group">
+                        <label asp-for="Sifre" class="control-label"></label>
+                        <input asp-for="Sifre" class="form-control" />
+                        <span asp-validation-for="Sifre" class="crud-validation-error"></span>
+                    </div>
+                </div>
+
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="RolId" class="control-label"></label>
+                        <select asp-for="RolId" class="form-select" asp-items="ViewBag.RolId"></select>
+                        <span asp-validation-for="RolId" class="crud-validation-error"></span>
+                    </div>
+                    <div class="crud-form-group justify-content-end">
+                        <div class="form-check mt-auto mb-2">
+                            <input class="form-check-input" asp-for="AktifMi" />
+                            <label class="form-check-label" for="AktifMi">
+                                @Html.DisplayNameFor(model => model.AktifMi)
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Soyadi" class="control-label"></label>
-                <input asp-for="Soyadi" class="form-control" />
-                <span asp-validation-for="Soyadi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefon" class="control-label"></label>
-                <input asp-for="Telefon" class="form-control" />
-                <span asp-validation-for="Telefon" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KullaniciAdi" class="control-label"></label>
-                <input asp-for="KullaniciAdi" class="form-control" />
-                <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sifre" class="control-label"></label>
-                <input asp-for="Sifre" class="form-control" />
-                <span asp-validation-for="Sifre" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AktifMi" /> @Html.DisplayNameFor(model => model.AktifMi)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="RolId" class="control-label"></label>
-                <select asp-for="RolId" class="form-select" asp-items="ViewBag.RolId"></select>
-                <span asp-validation-for="RolId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
+
+            <div class="crud-form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Kaydet
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Listeye Dön
+                </a>
             </div>
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

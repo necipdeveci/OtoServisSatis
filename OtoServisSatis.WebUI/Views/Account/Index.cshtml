@@ -3,115 +3,143 @@
     ViewData["Title"] = "Kullanıcı Bilgilerim";
 }
 
-<h1>Kullanıcı Bilgilerim</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="UserUpdate">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="EklenmeTarihi" />
-            <input type="hidden" asp-for="UserGuid" />
-            <input type="hidden" asp-for="RolId" />
-            <div class="form-group">
-                <label asp-for="Adi" class="control-label"></label>
-                <input asp-for="Adi" class="form-control" />
-                <span asp-validation-for="Adi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Soyadi" class="control-label"></label>
-                <input asp-for="Soyadi" class="form-control" />
-                <span asp-validation-for="Soyadi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefon" class="control-label"></label>
-                <input asp-for="Telefon" class="form-control" />
-                <span asp-validation-for="Telefon" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sifre" class="control-label"></label>
-                <input asp-for="Sifre" class="form-control" />
-                <span asp-validation-for="Sifre" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AktifMi" /> @Html.DisplayNameFor(model => model.AktifMi)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="crud-container mt-4">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Kullanıcı Bilgilerim</h1>
+        <p class="crud-page-description">Profil bilgilerinizi güncelleyebilir ve aracınızın servis geçmişini sorgulayabilirsiniz.</p>
     </div>
-    <div class="col-md-8">
-        <form asp-action="PlakaSorgula" method="get" class="mb-4 plaka-sorgu-card">
-            <h5>Servis Kaydı Sorgula</h5>
-            <div class="form-group">
-                <label for="plaka">Araç Plakası</label>
-                <input type="text" name="plaka" id="plaka" class="form-control" placeholder="Örn: 34ABC1234" required />
-            </div>
-            <button type="submit" class="btn btn-info mt-2">Servis Kaydını Göster</button>
-        </form>
 
-        @if (ViewBag.ServisKaydi != null)
-        {
-            <div class="servis-kaydi-sonuc">
-                <h5>Servis Kaydı Bulundu</h5>
-                <table class="table table-striped">
-                    <tr>
-                        <th>Araç Plakası</th>
-                        <td>@ViewBag.ServisKaydi.AracPlaka</td>
-                    </tr>
-                    <tr>
-                        <th>Marka</th>
-                        <td>@ViewBag.ServisKaydi.Marka</td>
-                    </tr>
-                    <tr>
-                        <th>Model</th>
-                        <td>@ViewBag.ServisKaydi.Model</td>
-                    </tr>
-                    <tr>
-                        <th>Araç Sorunu</th>
-                        <td>@ViewBag.ServisKaydi.AracSorunu</td>
-                    </tr>
-                    <tr>
-                        <th>Servise Geliş Tarihi</th>
-                        <td>@ViewBag.ServisKaydi.ServiseGelisTarihi.ToShortDateString()</td>
-                    </tr>
-                    <tr>
-                        <th>Servisten Çıkış Tarihi</th>
-                        <td>@ViewBag.ServisKaydi.ServistenCikisTarihi.ToShortDateString()</td>
-                    </tr>
-                    <tr>
-                        <th>Yapılan İşlemler</th>
-                        <td>@ViewBag.ServisKaydi.YapilanIslemler</td>
-                    </tr>
-                    <tr>
-                        <th>Servis Ücreti</th>
-                        <td>@ViewBag.ServisKaydi.ServisUcreti.ToString("C2")</td>
-                    </tr>
-                    <tr>
-                        <th>Garanti Kapsamında</th>
-                        <td>@(ViewBag.ServisKaydi.GarantiKapsamindaMi ? "Evet" : "Hayır")</td>
-                    </tr>
-                    <tr>
-                        <th>Notlar</th>
-                        <td>@ViewBag.ServisKaydi.Notlar</td>
-                    </tr>
-                </table>
+    <hr class="crud-divider" />
+
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <div class="crud-form-card">
+                <div class="crud-form-section-title">Profil Bilgileri</div>
+
+                <form asp-action="UserUpdate" method="post">
+                    <div asp-validation-summary="ModelOnly" class="crud-validation-summary text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="EklenmeTarihi" />
+                    <input type="hidden" asp-for="UserGuid" />
+                    <input type="hidden" asp-for="RolId" />
+
+                    <div class="crud-form-group mb-3">
+                        <label asp-for="Adi"></label>
+                        <input asp-for="Adi" class="form-control" placeholder="Adınız" />
+                        <span asp-validation-for="Adi" class="text-danger small mt-1"></span>
+                    </div>
+
+                    <div class="crud-form-group mb-3">
+                        <label asp-for="Soyadi"></label>
+                        <input asp-for="Soyadi" class="form-control" placeholder="Soyadınız" />
+                        <span asp-validation-for="Soyadi" class="text-danger small mt-1"></span>
+                    </div>
+
+                    <div class="crud-form-group mb-3">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" placeholder="E-posta Adresiniz" />
+                        <span asp-validation-for="Email" class="text-danger small mt-1"></span>
+                    </div>
+
+                    <div class="crud-form-group mb-3">
+                        <label asp-for="Telefon"></label>
+                        <input asp-for="Telefon" class="form-control" placeholder="Telefon Numaranız" />
+                        <span asp-validation-for="Telefon" class="text-danger small mt-1"></span>
+                    </div>
+
+                    <div class="crud-form-group mb-4">
+                        <label asp-for="Sifre"></label>
+                        <input asp-for="Sifre" type="password" class="form-control" placeholder="Şifreniz" />
+                        <span asp-validation-for="Sifre" class="text-danger small mt-1"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" asp-for="AktifMi" />
+                        <label class="form-check-label" asp-for="AktifMi">
+                            @Html.DisplayNameFor(model => model.AktifMi)
+                        </label>
+                    </div>
+
+                    <div class="crud-form-actions p-0 border-0 m-0">
+                        <input type="submit" value="Değişiklikleri Kaydet" class="btn btn-primary w-100" />
+                    </div>
+                </form>
             </div>
-        }
-        else if (Context.Request.Query.ContainsKey("plaka"))
-        {
-            <div class="servis-kaydi-sonuc alert alert-warning mt-3">
-                <strong>Uyarı!</strong> Belirtilen plakaya ait servis kaydı bulunamadı.
+        </div>
+
+        <div class="col-lg-7">
+            <div class="plaka-sorgu-card m-0">
+                <h5>Servis Kaydı Sorgula</h5>
+                <form asp-action="PlakaSorgula" method="get">
+                    <div class="crud-form-group">
+                        <label for="plaka" class="mb-2">Araç Plakası</label>
+                        <div class="d-flex gap-2 flex-sm-row flex-column">
+                            <input type="text" name="plaka" id="plaka" class="form-control text-uppercase" placeholder="Örn: 34ABC1234" required />
+                            <button type="submit" class="btn btn-primary px-4">Sorgula</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        }
+
+            @if (ViewBag.ServisKaydi != null)
+            {
+                <div class="servis-kaydi-sonuc">
+                    <h5>Servis Kaydı Bulundu</h5>
+                    <div class="crud-table-scroll-wrapper m-0 border-0">
+                        <table class="table table-striped crud-table m-0">
+                            <tbody>
+                                <tr>
+                                    <th class="border-0 text-muted w-25">Araç Plakası</th>
+                                    <td class="border-0 fw-bold text-uppercase">@ViewBag.ServisKaydi.AracPlaka</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Marka / Model</th>
+                                    <td>@ViewBag.ServisKaydi.Marka @ViewBag.ServisKaydi.Model</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Araç Sorunu</th>
+                                    <td>@ViewBag.ServisKaydi.AracSorunu</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Geliş Tarihi</th>
+                                    <td>@ViewBag.ServisKaydi.ServiseGelisTarihi.ToShortDateString()</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Çıkış Tarihi</th>
+                                    <td>@ViewBag.ServisKaydi.ServistenCikisTarihi.ToShortDateString()</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Yapılan İşlemler</th>
+                                    <td>@ViewBag.ServisKaydi.YapilanIslemler</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Servis Ücreti</th>
+                                    <td class="fw-bold">@ViewBag.ServisKaydi.ServisUcreti.ToString("C2")</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Garanti Durumu</th>
+                                    <td>
+                                        <span class="badge @(ViewBag.ServisKaydi.GarantiKapsamindaMi ? "bg-success" : "bg-danger")">
+                                            @(ViewBag.ServisKaydi.GarantiKapsamindaMi ? "Garanti Kapsamında" : "Kapsam Dışı")
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted border-0">Notlar</th>
+                                    <td class="border-0">@ViewBag.ServisKaydi.Notlar</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else if (Context.Request.Query.ContainsKey("plaka"))
+            {
+                <div class="alert alert-warning mt-4 border border-warning-subtle d-flex align-items-center" role="alert">
+                    <span class="me-2">⚠️</span>
+                    <div>Belirtilen plakaya ait aktif bir servis kaydı bulunamadı.</div>
+                </div>
+            }
+        </div>
     </div>
 </div>

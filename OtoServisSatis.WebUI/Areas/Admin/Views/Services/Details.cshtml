@@ -1,0 +1,300 @@
+﻿@model OtoServisSatis.Entities.Servis
+@{
+    ViewData["Title"] = "Servis Fatura Detayı";
+    Layout = null;
+    var musteri = ViewBag.Musteri as OtoServisSatis.Entities.Musteri;
+    var arac = ViewBag.Arac as OtoServisSatis.Entities.Arac;
+
+    decimal kdvOrani = 0.20m;
+    decimal kdvHaric = Model.ServisUcreti / (1 + kdvOrani);
+    decimal kdvTutari = Model.ServisUcreti - kdvHaric;
+
+    var islemler = !string.IsNullOrEmpty(Model.YapilanIslemler)
+        ? Model.YapilanIslemler.Split(',')
+        : new string[] { "Servis Bakım Hizmeti" };
+}
+
+<head>
+    <style>
+        .invoice-container {
+            max-width: 900px;
+            margin: 0 auto;
+            font-family: sans-serif;
+            color: #333;
+            line-height: 1.1;
+        }
+
+        .invoice-box {
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #2c3e50;
+            padding-bottom: 3px;
+            margin-bottom: 5px;
+        }
+
+        .invoice-company h2 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .invoice-company p, .invoice-info div {
+            margin: 0;
+            font-size: 10px;
+            color: #555;
+        }
+
+        .invoice-title {
+            color: #e74c3c;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .invoice-parties {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .invoice-party {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #eee;
+            background: #f9f9f9;
+        }
+
+            .invoice-party h5 {
+                margin: 0 0 2px 0;
+                border-bottom: 1px solid #ddd;
+                font-size: 11px;
+                color: #2c3e50;
+            }
+
+            .invoice-party p {
+                margin: 0;
+                font-size: 9px;
+            }
+
+        .invoice-vehicle-info {
+            margin-bottom: 5px;
+        }
+
+            .invoice-vehicle-info h5 {
+                margin: 0 0 3px 0;
+                font-size: 11px;
+                border-bottom: 1px solid #eee;
+                color: #2c3e50;
+            }
+
+        .invoice-vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3px;
+        }
+
+        .invoice-vehicle-item {
+            font-size: 9px;
+            padding: 3px;
+            border: 1px solid #eee;
+        }
+
+            .invoice-vehicle-item strong {
+                display: block;
+                font-size: 8px;
+                color: #666;
+            }
+
+        .highlight {
+            padding: 3px;
+            border-left: 2px solid #ffc107;
+            font-size: 9px;
+            margin-top: 2px;
+        }
+
+        .invoice-items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+
+            .invoice-items-table th, .invoice-items-table td {
+                padding: 3px;
+                border-bottom: 1px solid #eee;
+                font-size: 9px;
+            }
+
+            .invoice-items-table th {
+                background: #2c3e50;
+                color: #fff;
+                text-align: left;
+            }
+
+        .invoice-summary {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 3px;
+        }
+
+        .invoice-summary-table td {
+            padding: 2px 5px;
+            font-size: 10px;
+        }
+
+        .invoice-summary-table .total-row td {
+            font-weight: bold;
+            font-size: 11px;
+            border-top: 1px solid #2c3e50;
+        }
+
+        .invoice-footer {
+            border-top: 1px solid #eee;
+            padding-top: 3px;
+            font-size: 9px;
+        }
+
+        @@media print {
+            @@page {
+                size: A4 portrait;
+                margin: 3mm;
+            }
+
+            body {
+                font-size: 9px;
+                padding: 0;
+                background: #fff;
+                color: #000;
+            }
+
+            .sb-topnav, .sb-sidenav, #layoutSidenav_nav, .navbar, header, footer, .no-print {
+                display: none !important;
+            }
+
+            #layoutSidenav_content, main {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            .invoice-container {
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .invoice-box {
+                padding: 0;
+                border: none;
+            }
+
+            .invoice-party, .invoice-vehicle-item {
+                border: 1px solid #ccc;
+                background: transparent !important;
+            }
+
+            .invoice-items-table th {
+                background: #e0e0e0 !important;
+                color: #000 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .highlight {
+                background: transparent !important;
+                border-left: 2px solid #000;
+            }
+
+            .invoice-summary, .invoice-footer {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<div class="invoice-container">
+    <div class="invoice-actions no-print" style="margin-bottom: 10px; display: flex; gap: 5px;">
+        <a asp-action="Index" style="display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; background-color: #6c757d; color: #ffffff; text-decoration: none; border: 1px solid #6c757d; border-radius: 4px; font-size: 11px; font-weight: bold; font-family: sans-serif; cursor: pointer; transition: background-color 0.15s ease-in-out;"><i class="fas fa-arrow-left" style="margin-right: 4px;"></i> Dön</a>
+        <button onclick="window.print()" style="display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; background-color: #007bff; color: #ffffff; border: 1px solid #007bff; border-radius: 4px; font-size: 11px; font-weight: bold; font-family: sans-serif; cursor: pointer; transition: background-color 0.15s ease-in-out;"><i class="fas fa-print" style="margin-right: 4px;"></i> Yazdır</button>
+    </div>
+
+    <div class="invoice-box">
+        <div class="invoice-header">
+            <div class="invoice-company">
+                <h2>ROTA MOTORLU ARAÇLAR</h2>
+                <p>Otomotiv San. ve Tic. Ltd. Şti.</p>
+            </div>
+            <div style="text-align: right;">
+                <div class="invoice-title">e-Arşiv Fatura</div>
+                <div class="invoice-info">
+                    <div>Fatura: <strong>#SRV-@Model.Id.ToString("D6")</strong> | Tarih: <strong>@DateTime.Now.ToString("dd.MM.yy HH:mm")</strong> | Çıkış: <strong>@Model.ServistenCikisTarihi.ToString("dd.MM.yy")</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="invoice-parties">
+            <div class="invoice-party">
+                <h5>Gönderici</h5>
+                <p>Rota Motorlu Araçlar Otom. San. Tic. Ltd. Şti.<br>Melikgazi / Kayseri<br><strong>Tel:</strong> 0999 444 2222 | <strong>VD:</strong> Mimarsinan - <strong>VKN:</strong> 4580912345</p>
+            </div>
+            <div class="invoice-party">
+                <h5>Alıcı (Müşteri)</h5>
+                <p><strong>@(musteri != null ? $"{musteri.Adi} {musteri.Soyadi}" : "-")</strong><br>@(musteri?.Adres ?? "-")<br><strong>TC/VKN:</strong> @(musteri?.TcNo ?? "11111111111") | <strong>Tel:</strong> @(musteri?.Telefon ?? "-")</p>
+            </div>
+        </div>
+
+        <div class="invoice-vehicle-info">
+            <h5>Araç Bilgileri</h5>
+            <div class="invoice-vehicle-grid">
+                <div class="invoice-vehicle-item"><strong>Plaka:</strong> @Model.AracPlaka</div>
+                <div class="invoice-vehicle-item"><strong>Marka/Model:</strong> @Model.Marka @Model.Model</div>
+                <div class="invoice-vehicle-item"><strong>Kasa:</strong> @(Model.KasaTipi ?? "-")</div>
+                <div class="invoice-vehicle-item"><strong>Şase:</strong> @(Model.SaseNo ?? "-")</div>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.AracSorunu))
+            {
+                <div class="highlight"><strong>Sorun:</strong> @Model.AracSorunu</div>
+            }
+        </div>
+
+        <table class="invoice-items-table">
+            <thead>
+                <tr><th style="width:5%;">#</th><th style="width:65%;">Açıklama</th><th style="width:10%; text-align:center;">KDV</th><th style="width:20%; text-align:right;">Tutar</th></tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < islemler.Length; i++)
+                {
+                    <tr><td>@(i + 1)</td><td>@islemler[i].Trim()</td><td style="text-align:center;">-</td><td style="text-align:right;">-</td></tr>
+                }
+                <tr><td colspan="2" style="font-weight:bold;">Servis/İşçilik Toplamı</td><td style="text-align:center;">%20</td><td style="text-align:right;">@kdvHaric.ToString("N2") ₺</td></tr>
+            </tbody>
+        </table>
+
+        <div class="invoice-summary">
+            <table class="invoice-summary-table">
+                <tr><td>Toplam Tutar:</td><td style="text-align:right;">@kdvHaric.ToString("N2") ₺</td></tr>
+                <tr><td>KDV (%20):</td><td style="text-align:right;">@kdvTutari.ToString("N2") ₺</td></tr>
+                <tr class="total-row"><td>ÖDENECEK:</td><td style="text-align:right;">@Model.ServisUcreti.ToString("N2") ₺</td></tr>
+            </table>
+        </div>
+
+        <div class="invoice-footer">
+            @if (!string.IsNullOrEmpty(Model.Notlar))
+            {
+                <div style="margin-bottom:2px;"><strong>Notlar:</strong> @Model.Notlar</div>
+            }
+            <div style="margin-bottom:2px;"><strong>Garanti:</strong> @(Model.GarantiKapsamindaMi ? "Kapsamında" : "Dışı")</div>
+            <div style="text-align:center; color:#777; font-size:7px;">Bizi tercih ettiğiniz için teşekkür ederiz. Bilgi amaçlıdır.</div>
+        </div>
+    </div>
+</div>
+
+@if (Context.Request.Query["autoPrint"] == "true")
+{
+    <script>window.onload = function(){ window.print(); setTimeout(function(){ window.close(); }, 500); };</script>
+}

@@ -3,6 +3,9 @@ using OtoServisSatis.Service.Abstract;
 using OtoServisSatis.Service.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using WkHtmlToPdfDotNet;
+using WkHtmlToPdfDotNet.Contracts;
+
 
 namespace OtoServisSatis.WebUI
 {
@@ -60,6 +63,10 @@ namespace OtoServisSatis.WebUI
                 // Admin sayfası tüm rolleri kabul etsin
                 x.AddPolicy("AdminPagePolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin", "User", "ServisPersoneli", "SatisTemsilcisi", "Customer"));
             });
+
+            builder.Services.AddHostedService<OtoServisSatis.WebUI.BackgroundServices.BakimHatirlatmaService>();
+            builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
 
             var app = builder.Build();
 

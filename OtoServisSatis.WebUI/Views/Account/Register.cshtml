@@ -1,51 +1,64 @@
 ﻿@model OtoServisSatis.Entities.Kullanici
-
 @{
     ViewData["Title"] = "Üye Kayıt";
 }
 
-<h1>Üye Kayıt</h1>
+<div class="crud-container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="crud-form-card">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold m-0 text-uppercase tracking-wider">Yeni Üyelik</h2>
+                    <p class="text-muted small mt-2">Sisteme kayıt olmak için aşağıdaki alanları doldurun.</p>
+                </div>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Adi" class="control-label"></label>
-                <input asp-for="Adi" class="form-control" />
-                <span asp-validation-for="Adi" class="text-danger"></span>
+                <hr class="crud-divider my-3" />
+
+                <form asp-action="Register" method="post">
+                    <div asp-validation-summary="ModelOnly" class="crud-validation-summary text-danger"></div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-6 crud-form-group">
+                            <label asp-for="Adi" class="mb-2"></label>
+                            <input asp-for="Adi" class="form-control" placeholder="Adınız" />
+                            <span asp-validation-for="Adi" class="text-danger small mt-1"></span>
+                        </div>
+                        <div class="col-sm-6 crud-form-group">
+                            <label asp-for="Soyadi" class="mb-2"></label>
+                            <input asp-for="Soyadi" class="form-control" placeholder="Soyadınız" />
+                            <span asp-validation-for="Soyadi" class="text-danger small mt-1"></span>
+                        </div>
+                    </div>
+
+                    <div class="crud-form-group mb-3">
+                        <label asp-for="Email" class="mb-2"></label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="name@example.com" />
+                        <span asp-validation-for="Email" class="text-danger small mt-1"></span>
+                    </div>
+
+                    <div class="crud-form-group mb-3">
+                        <label asp-for="Telefon" class="mb-2"></label>
+                        <input asp-for="Telefon" type="tel" class="form-control" placeholder="0555 XXXXXXX" />
+                        <span asp-validation-for="Telefon" class="text-danger small mt-1"></span>
+                    </div>
+
+                    <div class="crud-form-group mb-4">
+                        <label asp-for="Sifre" class="mb-2"></label>
+                        <input asp-for="Sifre" type="password" class="form-control" placeholder="Güçlü bir şifre girin" />
+                        <span asp-validation-for="Sifre" class="text-danger small mt-1"></span>
+                    </div>
+
+                    <div class="crud-form-actions p-0 border-0 m-0">
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-medium">Hesap Oluştur</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Soyadi" class="control-label"></label>
-                <input asp-for="Soyadi" class="form-control" />
-                <span asp-validation-for="Soyadi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefon" class="control-label"></label>
-                <input asp-for="Telefon" class="form-control" />
-                <span asp-validation-for="Telefon" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Sifre" class="control-label"></label>
-                <input asp-for="Sifre" class="form-control" />
-                <span asp-validation-for="Sifre" class="text-danger"></span>
-            </div>
-            
-            
-            <div class="form-group mt-3">
-                <input type="submit" value="Kaydol" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

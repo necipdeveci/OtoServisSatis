@@ -4,50 +4,92 @@
     ViewData["Title"] = "Satışlar";
 }
 
-<h1>Satışlar</h1>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Satış Kayıtları</h1>
+        <p class="crud-page-description">Araç satış işlemlerini yönetin</p>
+        <div class="crud-divider"></div>
+    </div>
 
-<p>
-    <a class="btn btn-outline-primary" asp-action="Create">Yeni Ekle</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SatisFiyati)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SatisTarihi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Arac)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Musteri)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+    <div class="crud-table-wrapper">
+        <div class="crud-table-header">
+            <h5 class="crud-table-title">Tüm Satışlar</h5>
+            <div class="crud-table-actions">
+                <a class="btn btn-primary" asp-action="Create">
+                    <i class="fas fa-plus"></i> Yeni Satış
+                </a>
+            </div>
+        </div>
+
+        @if (Model.Any())
         {
-            <tr>
-                <td>
-                    ₺@item.SatisFiyati.ToString("N0")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SatisTarihi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Arac.AracBilgi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Musteri.AdSoyad)
-                </td>
-                <td>
-                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
-                </td>
-            </tr>
+            <div class="crud-table-scroll-wrapper">
+                <table class="crud-table table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 130px;">Satış Tarihi</th>
+                            <th style="min-width: 120px;">Satış Fiyatı</th>
+                            <th style="min-width: 180px;">Araç Bilgisi</th>
+                            <th style="min-width: 150px;">Müşteri Adı</th>
+                            <th style="min-width: 180px;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span style="white-space: nowrap;">
+                                        @item.SatisTarihi.ToString("dd.MM.yyyy")
+                                    </span>
+                                </td>
+                                <td style="text-align: right; font-weight: 600; white-space: nowrap;">
+                                    ₺@item.SatisFiyati.ToString("N2")
+                                </td>
+                                <td>
+                                    <span style="display: block; white-space: nowrap;">
+                                        @item.Arac.AracBilgi
+                                    </span>
+                                </td>
+                                <td>
+                                    <span style="white-space: nowrap;">
+                                        @item.Musteri.AdSoyad
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="crud-table-actions-cell" style="white-space: nowrap;">
+                                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id" title="Düzenle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-secondary" asp-action="PrintContract" asp-route-id="@item.Id" target="_blank" title="Sözleşme">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id" title="Sil">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll-hint">
+                <i class="fas fa-arrow-right"></i> Tablo yatay kaydırılabilir
+            </div>
         }
-    </tbody>
-</table>
+        else
+        {
+            <div class="crud-empty-state">
+                <div class="crud-empty-state-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h5 class="crud-empty-state-title">Satış Kaydı Bulunamadı</h5>
+                <p class="crud-empty-state-description">Henüz herhangi bir satış kaydı oluşturulmamıştır.</p>
+                <a asp-action="Create" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> İlk Satışı Oluştur
+                </a>
+            </div>
+        }
+    </div>
+</div>

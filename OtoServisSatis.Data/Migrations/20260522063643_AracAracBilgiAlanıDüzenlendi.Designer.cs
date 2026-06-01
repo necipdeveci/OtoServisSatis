@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OtoServisSatis.Data;
 
@@ -11,9 +12,11 @@ using OtoServisSatis.Data;
 namespace OtoServisSatis.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20260522063643_AracAracBilgiAlanıDüzenlendi")]
+    partial class AracAracBilgiAlanıDüzenlendi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,12 +38,6 @@ namespace OtoServisSatis.Data.Migrations
 
                     b.Property<bool>("Anasayfa")
                         .HasColumnType("bit");
-
-                    b.Property<bool>("BakimMailiGonderildi")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("BakimTarihi")
-                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Fiyati")
                         .HasColumnType("decimal(18,2)");
@@ -159,14 +156,14 @@ namespace OtoServisSatis.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2026, 5, 22, 12, 14, 24, 761, DateTimeKind.Local).AddTicks(3149),
+                            EklenmeTarihi = new DateTime(2026, 5, 22, 9, 36, 40, 188, DateTimeKind.Local).AddTicks(7950),
                             Email = "admin@com",
                             KullaniciAdi = "admin",
                             RolId = 1,
                             Sifre = "123456",
                             Soyadi = "Admin",
                             Telefon = "1234567890",
-                            UserGuid = new Guid("e81f9b5e-2b9c-4a76-8de6-db95ea022767")
+                            UserGuid = new Guid("56d9776d-6421-4191-9a03-ed7db26621a8")
                         });
                 });
 

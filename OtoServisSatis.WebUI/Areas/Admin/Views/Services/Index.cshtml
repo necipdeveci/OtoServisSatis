@@ -4,100 +4,151 @@
     ViewData["Title"] = "Servis Kayıtları";
 }
 
-<h1>Servis Kayıtları</h1>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Servis Kayıtları</h1>
+        <p class="crud-page-description">Araç servis işlemlerini yönetin</p>
+        <div class="crud-divider"></div>
+    </div>
 
-<p>
-    <a class="btn btn-outline-primary" asp-action="Create">Yeni Ekle</a>
+    <div class="crud-table-wrapper">
+        <div class="crud-table-header">
+            <h5 class="crud-table-title">Tüm Servis Kayıtları</h5>
+            <div class="crud-table-actions">
+                <a class="btn btn-primary" asp-action="Create">
+                    <i class="fas fa-plus"></i> Yeni Ekle
+                </a>
+            </div>
+        </div>
 
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiseGelisTarihi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AracSorunu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServisUcreti)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServistenCikisTarihi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.YapilanIslemler)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GarantiKapsamindaMi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AracPlaka)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Marka)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KasaTipi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SaseNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Notlar)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+        @if (Model.Any())
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ServiseGelisTarihi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AracSorunu)
-                </td>
-                <td>
-                    ₺@item.ServisUcreti.ToString("N0")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ServistenCikisTarihi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.YapilanIslemler)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GarantiKapsamindaMi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AracPlaka)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Marka)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Model)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.KasaTipi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SaseNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Notlar)
-                </td>
-                <td>
+            <div class="crud-table-scroll-wrapper">
+                <table class="crud-table table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 140px;">Giriş Tarihi</th>
+                            <th style="min-width: 120px;">Araç Plakası</th>
+                            <th style="min-width: 180px;">Araç Bilgisi</th>
+                            <th style="min-width: 200px;">Sorunu</th>
+                            <th style="min-width: 100px; text-align: right;">Ücret</th>
+                            <th style="min-width: 110px;">Durum</th>
+                            <th style="min-width: 140px;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span title="@item.ServiseGelisTarihi.ToString("dd.MM.yyyy HH:mm")">
+                                        @item.ServiseGelisTarihi.ToString("dd.MM.yyyy")
+                                    </span>
+                                </td>
+                                <td>
+                                    <span style="font-weight: 600; letter-spacing: 1px; display: block; white-space: nowrap;">
+                                        @item.AracPlaka
+                                    </span>
+                                </td>
+                                <td>
+                                    <span style="display: block; white-space: nowrap;">
+                                        @item.Marka @item.Model
+                                        @if (!string.IsNullOrEmpty(item.KasaTipi))
+                                        {
+                                            <span class="text-muted" style="font-size: 0.85rem;"> - @item.KasaTipi</span>
+                                        }
+                                    </span>
+                                </td>
+                                <td>
+                                    <span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; max-width: 200px;" title="@item.AracSorunu">
+                                        @item.AracSorunu
+                                    </span>
+                                </td>
+                                <td style="text-align: right; font-weight: 600; white-space: nowrap;">
+                                    ₺@item.ServisUcreti.ToString("N2")
+                                </td>
+                                <td style="white-space: nowrap;">
+                                    @if (item.DurumTamamlandi)
+                                    {
+                                        <span class="badge bg-dark">Tamamlandı</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Devam Ediyor</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="crud-table-actions-cell" style="white-space: nowrap;">
+                                        @if (item.DurumTamamlandi)
+                                        {
+                                            <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.Id" title="Görüntüle">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-secondary" asp-action="FaturaIndir" asp-route-id="@item.Id" title="PDF Olarak İndir">
+                                                <i class="fas fa-file-pdf"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id" title="Düzenle">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
 
-                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
-                </td>
-            </tr>
+                                            <form id="form-tamamla-@item.Id" asp-action="Tamamla" asp-route-id="@item.Id" method="post" style="display:inline;">
+                                                <button type="button" class="btn btn-sm btn-success" title="Tamamla" onclick="confirmTamamla('@item.Id')">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id" title="Sil">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll-hint">
+                <i class="fas fa-arrow-right"></i> Tablo yatay kaydırılabilir
+            </div>
         }
-    </tbody>
-</table>
+        else
+        {
+            <div class="crud-empty-state">
+                <div class="crud-empty-state-icon">
+                    <i class="fas fa-inbox"></i>
+                </div>
+                <h5 class="crud-empty-state-title">Servis Kaydı Bulunamadı</h5>
+                <p class="crud-empty-state-description">Henüz herhangi bir servis kaydı oluşturulmamıştır.</p>
+                <a asp-action="Create" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> İlk Kaydı Oluştur
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function confirmTamamla(id) {
+        Swal.fire({
+            title: 'Emin misiniz?',
+            text: "Servis kaydı tamamlanacak ve müşteriye otomatik e-arşiv fatura PDF'i gönderilecektir.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#111111',
+            cancelButtonColor: '#7A7A7A',
+            confirmButtonText: 'Evet, Tamamla',
+            cancelButtonText: 'Vazgeç',
+            background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#111111' : '#ffffff',
+            color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#F2F2F2' : '#0B0B0B'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('form-tamamla-' + id).submit();
+            }
+        });
+    }
+</script>

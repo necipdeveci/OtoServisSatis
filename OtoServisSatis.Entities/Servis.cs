@@ -32,5 +32,9 @@ namespace OtoServisSatis.Entities
         public string? SaseNo { get; set; }
         [Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Notlar { get; set; }
+
+        // GÖRSELDEKİ GÖREV 4: Tamamlanma durum kontrolü
+        [Display(Name = "Servis Tamamlandı Mı?")]
+        public bool DurumTamamlandi { get; set; }
     }
 }

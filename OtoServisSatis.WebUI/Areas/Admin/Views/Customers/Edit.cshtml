@@ -15,6 +15,19 @@
 
         <input type="hidden" asp-for="Id" />
 
+        <div class="crud-form-section">
+            <h3 class="crud-form-section-title">Araç Bilgisi</h3>
+            <div class="crud-form-row">
+                <div class="crud-form-group">
+                    <label asp-for="AracId">Araç <span class="required">*</span></label>
+                    <select asp-for="AracId" asp-items="(SelectList)ViewBag.AracId" class="form-control">
+                        <option value="">-- Araç Seçiniz --</option>
+                    </select>
+                    <span asp-validation-for="AracId" class="crud-validation-error"></span>
+                </div>
+            </div>
+        </div>
+
         <!-- Kişisel Bilgiler Bölümü -->
         <div class="crud-form-section">
             <h3 class="crud-form-section-title">Kişisel Bilgiler</h3>

@@ -135,5 +135,20 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
             }
             return Json(new { fiyati = arac.Fiyati });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> PrintContract(int id)
+        {
+            var satis = await _service.FindAsync(id);
+            if (satis == null)
+            {
+                return NotFound();
+            }
+
+            satis.Arac = await _serviceArac.FindAsync(satis.AracId);
+            satis.Musteri = await _serviceMusteri.FindAsync(satis.MusteriId);
+
+            return View(satis);
+        }
     }
 }

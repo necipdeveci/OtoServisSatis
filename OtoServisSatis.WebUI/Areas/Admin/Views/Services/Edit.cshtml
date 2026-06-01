@@ -4,89 +4,184 @@
     ViewData["Title"] = "Servis Kaydı Düzenle";
 }
 
-<h1>Servis Kaydı Düzenle</h1>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Servis Kaydı Düzenle</h1>
+        <p class="crud-page-description">Servis kaydı bilgilerini güncelleyin</p>
+        <div class="crud-divider"></div>
+    </div>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="crud-form-card">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="All" class="crud-validation-summary"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="ServiseGelisTarihi" class="control-label"></label>
-                <input asp-for="ServiseGelisTarihi" class="form-control" />
-                <span asp-validation-for="ServiseGelisTarihi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AracSorunu" class="control-label"></label>
-                <input asp-for="AracSorunu" class="form-control" />
-                <span asp-validation-for="AracSorunu" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ServisUcreti" class="control-label"></label>
-                <input asp-for="ServisUcreti" type="number" step="0.01" class="form-control" placeholder="₺ cinsinden ücret girin" />
-                <span asp-validation-for="ServisUcreti" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ServistenCikisTarihi" class="control-label"></label>
-                <input asp-for="ServistenCikisTarihi" class="form-control" />
-                <span asp-validation-for="ServistenCikisTarihi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="YapilanIslemler" class="control-label"></label>
-                <div id="islemlerContainer">
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control islem-input" placeholder="İşlem ekleyin..." />
-                        <button type="button" class="btn btn-success btn-add-islem" title="Yeni işlem ekle">+</button>
+
+            <!-- Araç Bilgileri Bölümü -->
+            <div class="crud-form-section">
+                <h5 class="crud-form-section-title">
+                    <i class="fas fa-car"></i> Araç Bilgileri
+                </h5>
+
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="AracPlaka" class="control-label">
+                            Araç Plakası
+                            <span class="required">*</span>
+                        </label>
+                        <input asp-for="AracPlaka" class="form-control" list="plakaList" id="AracPlaka"
+                               placeholder="Örn: 34ABC123" style="text-transform: uppercase;" autocomplete="off" />
+                        <datalist id="plakaList"></datalist>
+                        <span asp-validation-for="AracPlaka" class="crud-validation-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
+                    </div>
+
+                    <div class="crud-form-group">
+                        <label asp-for="Marka" class="control-label">
+                            Marka
+                            <span class="required">*</span>
+                        </label>
+                        <input asp-for="Marka" class="form-control" placeholder="Örn: Toyota" />
+                        <span asp-validation-for="Marka" class="crud-validation-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
                     </div>
                 </div>
-                <input type="hidden" asp-for="YapilanIslemler" id="yapilanIslemlerHidden" />
-                <span asp-validation-for="YapilanIslemler" class="text-danger"></span>
+
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="Model" class="control-label">
+                            Model
+                            <span class="required">*</span>
+                        </label>
+                        <input asp-for="Model" class="form-control" placeholder="Örn: Corolla" />
+                        <span asp-validation-for="Model" class="crud-validation-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
+                    </div>
+
+                    <div class="crud-form-group">
+                        <label asp-for="KasaTipi" class="control-label">Kasa Tipi</label>
+                        <input asp-for="KasaTipi" class="form-control" placeholder="Örn: Sedan" />
+                        <span asp-validation-for="KasaTipi" class="crud-validation-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="crud-form-group">
+                    <label asp-for="SaseNo" class="control-label">Şase No</label>
+                    <input asp-for="SaseNo" class="form-control" placeholder="Şase numarası..." />
+                    <span asp-validation-for="SaseNo" class="crud-validation-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </span>
+                </div>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="GarantiKapsamindaMi" /> @Html.DisplayNameFor(model => model.GarantiKapsamindaMi)
-                </label>
+
+            <!-- Servis Bilgileri Bölümü -->
+            <div class="crud-form-section">
+                <h5 class="crud-form-section-title">
+                    <i class="fas fa-wrench"></i> Servis Bilgileri
+                </h5>
+
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="ServiseGelisTarihi" class="control-label">
+                            Servise Geliş Tarihi
+                            <span class="required">*</span>
+                        </label>
+                        <input asp-for="ServiseGelisTarihi" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="ServiseGelisTarihi" class="crud-validation-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
+                    </div>
+
+                    <div class="crud-form-group">
+                        <label asp-for="ServistenCikisTarihi" class="control-label">Servisten Çıkış Tarihi</label>
+                        <input asp-for="ServistenCikisTarihi" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="ServistenCikisTarihi" class="crud-validation-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="crud-form-group">
+                    <label asp-for="AracSorunu" class="control-label">
+                        Araç Sorunu
+                        <span class="required">*</span>
+                    </label>
+                    <textarea asp-for="AracSorunu" class="form-control" rows="3"
+                              placeholder="Müşteri tarafından bildirilen sorun..."></textarea>
+                    <span asp-validation-for="AracSorunu" class="crud-validation-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </span>
+                </div>
+
+                <div class="crud-form-group">
+                    <label class="control-label">Yapılan İşlemler</label>
+                    <small class="form-text">İşlemleri aşağıda ekleyebilirsiniz</small>
+                    <div id="islemlerContainer" style="margin-top: 0.75rem;">
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control islem-input" placeholder="İşlem ekleyin..." />
+                            <button type="button" class="btn btn-success btn-add-islem" title="Yeni işlem ekle">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="YapilanIslemler" id="yapilanIslemlerHidden" />
+                    <span asp-validation-for="YapilanIslemler" class="crud-validation-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </span>
+                </div>
+
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="ServisUcreti" class="control-label">Servis Ücreti (₺)</label>
+                        <input asp-for="ServisUcreti" type="number" step="0.01" class="form-control" placeholder="₺ cinsinden ücret girin" />
+                        <span asp-validation-for="ServisUcreti" class="crud-validation-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
+                    </div>
+
+                    <div class="crud-form-group">
+                        <label class="control-label d-block" style="margin-bottom: 1rem;">Diğer</label>
+                        <div class="form-check" style="margin-top: 0.5rem;">
+                            <input class="form-check-input" type="checkbox" asp-for="GarantiKapsamindaMi" id="GarantiKapsamindaMi" />
+                            <label class="form-check-label" for="GarantiKapsamindaMi">
+                                Garanti Kapsamında Mı?
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="AracPlaka" class="control-label"></label>
-                <input asp-for="AracPlaka" class="form-control" />
-                <span asp-validation-for="AracPlaka" class="text-danger"></span>
+
+            <!-- Ek Bilgiler Bölümü -->
+            <div class="crud-form-section">
+                <h5 class="crud-form-section-title">
+                    <i class="fas fa-file-alt"></i> Ek Bilgiler
+                </h5>
+
+                <div class="crud-form-group">
+                    <label asp-for="Notlar" class="control-label">Notlar</label>
+                    <textarea asp-for="Notlar" class="form-control" rows="2" placeholder="Ek notlar..."></textarea>
+                    <span asp-validation-for="Notlar" class="crud-validation-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Marka" class="control-label"></label>
-                <select asp-for="Marka" class="form-control" asp-items="@(ViewBag.Markalar as SelectList)">
-                    <option value="">-- Marka Seçiniz --</option>
-                </select>
-                <span asp-validation-for="Marka" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KasaTipi" class="control-label"></label>
-                <input asp-for="KasaTipi" class="form-control" />
-                <span asp-validation-for="KasaTipi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SaseNo" class="control-label"></label>
-                <input asp-for="SaseNo" class="form-control" />
-                <span asp-validation-for="SaseNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Notlar" class="control-label"></label>
-                <input asp-for="Notlar" class="form-control" />
-                <span asp-validation-for="Notlar" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
+
+            <!-- Action Buttons -->
+            <div class="crud-form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Değişiklikleri Kaydet
+                </button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> İptal
+                </a>
             </div>
         </form>
     </div>
 </div>
-
 
 @section Scripts {
     @{
@@ -95,20 +190,47 @@
 
     <script>
         $(document).ready(function() {
+            // Plaka Autocomplete Listesi Doldurma
+            $('#AracPlaka').on('input', function() {
+                var val = $(this).val();
+                if (val.length >= 2) {
+                    $.get('/Admin/Services/PlakaAra', { term: val }, function(data) {
+                        $('#plakaList').empty();
+                        data.forEach(function(item) {
+                            $('#plakaList').append('<option value="' + item + '">');
+                        });
+                    });
+                }
+            });
+
+            // Plaka Seçildiğinde Otomatik Araç Detaylarını Getirme
+            $('#AracPlaka').on('change', function() {
+                var val = $(this).val();
+                if (val) {
+                    $.get('/Admin/Services/AracDetayGetir', { plaka: val }, function(data) {
+                        if (data && data.bulundu) {
+                            $('#Marka').val(data.marka);
+                            $('#Model').val(data.modeli);
+                            $('#KasaTipi').val(data.kasaTipi);
+                        }
+                    });
+                }
+            });
+
             // Veritabanından gelen işlemleri yükle ve ayrıştır
             var yapilanIslemler = '@Html.Raw(Model.YapilanIslemler)';
             if (yapilanIslemler) {
                 var islemler = yapilanIslemler.split(',');
                 islemler.forEach(function(islem, index) {
                     if (index === 0) {
-                        // İlk işlemi varsayılan input'a koy
                         $('#islemlerContainer').find('.islem-input:first').val(islem.trim());
                     } else {
-                        // Diğer işlemleri yeni input'lara ekle
                         var newInput = $(`
                             <div class="input-group mb-2">
                                 <input type="text" class="form-control islem-input" placeholder="İşlem ekleyin..." value="${islem.trim()}" />
-                                <button type="button" class="btn btn-danger btn-remove-islem" title="Kaldır">−</button>
+                                <button type="button" class="btn btn-danger btn-remove-islem" title="Kaldır">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </div>
                         `);
                         $('#islemlerContainer').append(newInput);
@@ -119,16 +241,15 @@
             // Yeni işlem input ekle
             $(document).on('click', '.btn-add-islem', function() {
                 var inputValue = $(this).siblings('.islem-input').val().trim();
-
                 var newInput = $(`
                     <div class="input-group mb-2">
                         <input type="text" class="form-control islem-input" placeholder="İşlem ekleyin..." value="${inputValue}" />
-                        <button type="button" class="btn btn-danger btn-remove-islem" title="Kaldır">−</button>
+                        <button type="button" class="btn btn-danger btn-remove-islem" title="Kaldır">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </div>
                 `);
                 $('#islemlerContainer').append(newInput);
-
-                // Varsayılan input'u boşalt ve fokus ver
                 $(this).siblings('.islem-input').val('').focus();
             });
 

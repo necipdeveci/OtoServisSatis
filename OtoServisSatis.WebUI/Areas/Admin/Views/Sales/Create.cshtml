@@ -1,54 +1,77 @@
 ﻿@model OtoServisSatis.Entities.Satis
 
 @{
-    ViewData["Title"] = "Satış Ekle";
+    ViewData["Title"] = "Yeni Satış Kaydı Ekle";
 }
 
-<div class="admin-form-container">
-    <h1 class="admin-form-title">Yeni Satış Kaydı Ekle</h1>
+<div class="crud-container">
+    <div class="crud-page-header">
+        <h1 class="crud-page-title">Yeni Satış Kaydı Ekle</h1>
+        <p class="crud-page-description">Araç satış işleminin detaylarını girin</p>
+        <div class="crud-divider"></div>
+    </div>
 
-    <div class="admin-form-card">
+    <div class="crud-form-card">
         <form asp-action="Create" method="post">
             <!-- Validation Summary -->
-            <div asp-validation-summary="All" class="admin-validation-summary"></div>
+            <div asp-validation-summary="All" class="crud-validation-summary"></div>
 
-            <!-- Araç Seçimi -->
-            <div class="admin-form-group">
-                <label asp-for="AracId" class="control-label">Araç *</label>
-                <select id="aracSelect" asp-for="AracId" class="form-select" asp-items="ViewBag.AracId">
-                    <option value="">-- Araç Seçiniz --</option>
-                </select>
-                <span asp-validation-for="AracId" class="admin-validation-error"></span>
-            </div>
+            <!-- Satış Bilgileri Bölümü -->
+            <div class="crud-form-section">
+                <h5 class="crud-form-section-title">
+                    <i class="fas fa-shopping-cart"></i> Satış Bilgileri
+                </h5>
 
-            <!-- Müşteri Seçimi -->
-            <div class="admin-form-group">
-                <label asp-for="MusteriId" class="control-label">Müşteri *</label>
-                <select asp-for="MusteriId" class="form-select" asp-items="ViewBag.MusteriId">
-                    <option value="">-- Müşteri Seçiniz --</option>
-                </select>
-                <span asp-validation-for="MusteriId" class="admin-validation-error"></span>
-            </div>
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="AracId" class="control-label">
+                            Araç
+                            <span class="required">*</span>
+                        </label>
+                        <select id="aracSelect" asp-for="AracId" class="form-select" asp-items="ViewBag.AracId">
+                            <option value="">-- Araç Seçiniz --</option>
+                        </select>
+                        <span asp-validation-for="AracId" class="crud-validation-error"></span>
+                    </div>
 
-            <!-- Satış Fiyatı -->
-            <div class="admin-form-group">
-                <label asp-for="SatisFiyati" class="control-label">Satış Fiyatı (₺) *</label>
-                <input id="satisFiyatiInput" asp-for="SatisFiyati" type="number" step="0.01" class="form-control" placeholder="0.00" readonly style="opacity: 0.7;" />
-                <small class="text-muted d-block mt-1">Araç seçildiğinde otomatik doldurulacak</small>
-                <span asp-validation-for="SatisFiyati" class="admin-validation-error"></span>
-            </div>
+                    <div class="crud-form-group">
+                        <label asp-for="MusteriId" class="control-label">
+                            Müşteri
+                            <span class="required">*</span>
+                        </label>
+                        <select asp-for="MusteriId" class="form-select" asp-items="ViewBag.MusteriId">
+                            <option value="">-- Müşteri Seçiniz --</option>
+                        </select>
+                        <span asp-validation-for="MusteriId" class="crud-validation-error"></span>
+                    </div>
+                </div>
 
-            <!-- Satış Tarihi -->
-            <div class="admin-form-group">
-                <label asp-for="SatisTarihi" class="control-label">Satış Tarihi *</label>
-                <input asp-for="SatisTarihi" class="form-control" type="datetime-local" />
-                <span asp-validation-for="SatisTarihi" class="admin-validation-error"></span>
+                <div class="crud-form-row">
+                    <div class="crud-form-group">
+                        <label asp-for="SatisFiyati" class="control-label">
+                            Satış Fiyatı (₺)
+                            <span class="required">*</span>
+                        </label>
+                        <input id="satisFiyatiInput" asp-for="SatisFiyati" type="number" step="0.01" class="form-control" placeholder="0.00" readonly style="opacity: 0.7;" />
+                        <small class="form-text">Araç seçildiğinde otomatik doldurulacak</small>
+                        <span asp-validation-for="SatisFiyati" class="crud-validation-error"></span>
+                    </div>
+
+                    <div class="crud-form-group">
+                        <label asp-for="SatisTarihi" class="control-label">
+                            Satış Tarihi
+                            <span class="required">*</span>
+                        </label>
+                        <input asp-for="SatisTarihi" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="SatisTarihi" class="crud-validation-error"></span>
+                    </div>
+                </div>
             </div>
 
             <!-- Action Buttons -->
-            <div class="admin-form-actions">
+            <div class="crud-form-actions">
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-check"></i> Satış Kaydı Ekle
+                    <i class="fas fa-save"></i> Satış Kaydı Ekle
                 </button>
                 <a href="@Url.Action("Index")" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Geri
