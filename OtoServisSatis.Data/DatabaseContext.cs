@@ -14,7 +14,6 @@ namespace OtoServisSatis.Data
         public DbSet<Satis> Satislar { get; set; }
         public DbSet<Servis> Servisler { get; set; }
         public DbSet<Slider> Sliders { get; set; }
-        public DbSet<Randevu> Randevular { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"server=.\SQLEXPRESS;

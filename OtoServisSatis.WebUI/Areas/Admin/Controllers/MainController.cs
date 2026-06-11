@@ -59,20 +59,15 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         {
             int seciliAy = ay ?? DateTime.Now.Month;
 
-            // Servis verilerini belleğe al
             var servisler = await _context.Servisler
                 .Where(s => s.ServiseGelisTarihi.Month == seciliAy && s.ServiseGelisTarihi.Year == DateTime.Now.Year)
                 .ToListAsync();
-
-            // Eşleştirme için markaları ID(string) ve Ad(string) sözlüğü olarak al
-            var markalar = await _context.Markalar.ToDictionaryAsync(m => m.Id.ToString(), m => m.Adi);
 
             var veriler = servisler
                 .GroupBy(s => s.Marka)
                 .Select(g => new
                 {
-                    // ID sözlükte varsa adını, yoksa ID'nin kendisini veya "Bilinmeyen" yazdır
-                    Etiket = markalar.ContainsKey(g.Key ?? "") ? markalar[g.Key] : "Bilinmeyen",
+                    Etiket = string.IsNullOrWhiteSpace(g.Key) ? "Bilinmeyen" : g.Key,
                     Deger = g.Count()
                 })
                 .ToList();
@@ -89,13 +84,11 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                 .Where(s => s.ServiseGelisTarihi.Date == seciliTarih)
                 .ToListAsync();
 
-            var markalar = await _context.Markalar.ToDictionaryAsync(m => m.Id.ToString(), m => m.Adi);
-
             var veriler = servisler
                 .GroupBy(s => s.Marka)
                 .Select(g => new
                 {
-                    Etiket = markalar.ContainsKey(g.Key ?? "") ? markalar[g.Key] : "Bilinmeyen",
+                    Etiket = string.IsNullOrWhiteSpace(g.Key) ? "Bilinmeyen" : g.Key,
                     Deger = g.Count()
                 })
                 .ToList();

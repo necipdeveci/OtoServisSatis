@@ -275,48 +275,82 @@
         const charts = {};
 
         async function loadChart(url, canvasId, chartType, labelText) {
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
+        try {
+        const response = await fetch(url);
+        let data = await response.json();
 
-                const labels = data.map(x => x.etiket);
-                const values = data.map(x => x.deger);
+        let labels = data.map(x => x.etiket);
+        let values = data.map(x => x.deger);
 
-                const ctx = document.getElementById(canvasId);
-                if (!ctx) return;
+        // Sadece 'aylikSatisChart' için eksik günleri doldurma ve sıralama mantığı
+        if (canvasId === 'aylikSatisChart') {
+        // Etiketlerden sadece sayısal gün değerlerini ayıkla (Ör: "1. Gün" -> 1)
+        let parsedData = data.map(x => {
+        let dayNum = parseInt(x.etiket.replace(/^\D+/g, ''));
+        if (isNaN(dayNum)) {
+        dayNum = parseInt(x.etiket);
+        }
+        return { day: dayNum, val: x.deger };
+        }).filter(x => !isNaN(x.day));
 
-                if (charts[canvasId]) {
-                    charts[canvasId].destroy();
-                }
+        // Ayın maksimum gün sayısını belirle (Gelen verideki en büyük gün veya varsayılan 31)
+        let maxDay = parsedData.length > 0 ? Math.max(...parsedData.map(o => o.day)) : 31;
+        if (maxDay < 28) maxDay = 31;
 
-                const primaryColor = getThemeColor('--dark-primary');
-                const bgColor = chartType === 'line' ? primaryColor + '15' : primaryColor + 'CC';
+        labels = [];
+        values = [];
 
-                charts[canvasId] = new Chart(ctx, {
-                    type: chartType,
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: labelText,
-                            data: values,
-                            borderColor: primaryColor,
-                            backgroundColor: bgColor,
-                            fill: chartType === 'line',
-                            tension: 0.4,
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: true }
-                        }
-                    }
-                });
-            } catch (error) {
-                console.error(canvasId + ' yüklenirken hata:', error);
-            }
+        // 1'den maxDay'e kadar tüm günleri ardışık oluştur
+        for (let i = 1; i <= maxDay; i++) {
+        labels.push(`${i}. Gün`);
+        let found = parsedData.find(x => x.day === i);
+        values.push(found ? found.val : 0); // Veri yoksa 0 koy
+        }
+        }
+
+        const ctx = document.getElementById(canvasId);
+        if (!ctx) return;
+
+        if (charts[canvasId]) {
+        charts[canvasId].destroy();
+        }
+
+        const primaryColor = getThemeColor('--dark-primary');
+        const bgColor = chartType === 'line' ? primaryColor + '15' : primaryColor + 'CC';
+
+        charts[canvasId] = new Chart(ctx, {
+        type: chartType,
+        data: {
+        labels: labels,
+        datasets: [{
+        label: labelText,
+        data: values,
+        borderColor: primaryColor,
+        backgroundColor: bgColor,
+        fill: chartType === 'line',
+        tension: 0.4,
+        borderWidth: 2
+        }]
+        },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+        legend: { display: true }
+        },
+        scales: {
+        x: {
+        ticks: {
+        maxTicksLimit: 15, // Gün isimlerinin birbirine girmemesi için yoğunluğu azaltır
+        autoSkip: true
+        }
+        }
+        }
+        }
+        });
+        } catch (error) {
+        console.error(canvasId + ' yüklenirken hata:', error);
+        }
         }
 
         function updateAylikSatis() {

@@ -9,8 +9,8 @@ namespace OtoServisSatis.WebUI.Utils
     {
         private static readonly string _host = "smtp.gmail.com";
         private static readonly int _port = 587;
-        private static readonly string _email = "wuhdjwhd2@gmail.com";
-        private static readonly string _appPassword = "wmeo flrc hpog cpwn";
+        private static readonly string _email = "test@com";
+        private static readonly string _appPassword = "1234 1234 1234 1234";
 
         public static async Task SendServisTamamlandiMailAsync(Musteri musteri, Servis servis, byte[] faturaDosyasi)
         {
