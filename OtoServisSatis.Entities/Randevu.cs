@@ -20,19 +20,19 @@ namespace OtoServisSatis.Entities
         public string Plaka { get; set; }
 
         [StringLength(50), Required(ErrorMessage = "Marka Boş Bırakılamaz!")]
-        public string AracMarka { get; set; }
+        public string? AracMarka { get; set; }
 
         [StringLength(50), Required(ErrorMessage = "Model Boş Bırakılamaz!")]
-        public string AracModel { get; set; }
+        public string? AracModel { get; set; }
 
         [StringLength(50), Required(ErrorMessage = "Kasa Tipi Boş Bırakılamaz!")]
-        public string AracKasaTipi { get; set; }
+        public string? AracKasaTipi { get; set; }
 
         [Required(ErrorMessage = "Tarih Boş Bırakılamaz!")]
         public DateTime Tarih { get; set; }
 
         [StringLength(500)]
-        public string TalepNotu { get; set; }
+        public string? TalepNotu { get; set; }
 
         // Sadece Talep Satış için
         [Range(0, double.MaxValue, ErrorMessage = "Bütçe negatif olamaz!")]
@@ -45,7 +45,7 @@ namespace OtoServisSatis.Entities
 
         public int? KullaniciId { get; set; }
         [ForeignKey(nameof(KullaniciId))]
-        public virtual Kullanici Kullanici { get; set; }
+        public virtual Kullanici? Kullanici { get; set; }
     }
 
     public enum TalepTipi

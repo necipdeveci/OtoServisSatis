@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OtoServisSatis.Entities.Randevu>
+
+@{
+    ViewData["Title"] = "Onarım Randevuları";
+}
+
+<div class="crud-container mt-5">
+    <div class="crud-page-header">
+        <h2 class="crud-page-title">Onarım Randevuları</h2>
+        <hr class="crud-divider" />
+    </div>
+
+    <div class="crud-table-wrapper">
+        <div class="crud-table-header">
+            <h3 class="crud-table-title">Randevu Listesi</h3>
+        </div>
+
+        <div class="crud-table-scroll-wrapper">
+            <table class="crud-table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Ad Soyad</th>
+                        <th>Plaka</th>
+                        <th>Tarih</th>
+                        <th>Talep Tipi</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Ad @item.Soyad</td>
+                            <td>@item.Plaka</td>
+                            <td>@item.Tarih.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@item.TalepTipi</td>
+                            <td>
+                                @if (item.OnaylıMı)
+                                {
+                                    <span class="badge bg-success">Onaylandı</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Beklemede</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="table-scroll-hint">Tablonun tamamını görmek için sağa kaydırın →</div>
+    </div>
+</div>

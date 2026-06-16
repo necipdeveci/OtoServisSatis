@@ -138,7 +138,9 @@ namespace OtoServisSatis.WebUI.Controllers
                 new Claim(ClaimTypes.Name, account.Adi),
                 new Claim(ClaimTypes.Email, account.Email),
                 new Claim(ClaimTypes.UserData, account.UserGuid.ToString()),
-                new Claim(ClaimTypes.Role, rol.Adi)
+                new Claim(ClaimTypes.Role, rol.Adi),
+
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString())
             };
 
                     var userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

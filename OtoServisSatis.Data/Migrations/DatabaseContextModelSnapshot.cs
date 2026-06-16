@@ -159,14 +159,14 @@ namespace OtoServisSatis.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2026, 6, 16, 14, 17, 21, 451, DateTimeKind.Local).AddTicks(3608),
+                            EklenmeTarihi = new DateTime(2026, 6, 16, 20, 47, 53, 536, DateTimeKind.Local).AddTicks(3529),
                             Email = "admin@com",
                             KullaniciAdi = "admin",
                             RolId = 1,
                             Sifre = "123456",
                             Soyadi = "Admin",
                             Telefon = "1234567890",
-                            UserGuid = new Guid("daba3314-7686-4a76-af84-f820fb01ee81")
+                            UserGuid = new Guid("b302562b-119b-4073-bb8e-9134012b3f21")
                         });
                 });
 
@@ -234,6 +234,73 @@ namespace OtoServisSatis.Data.Migrations
                     b.HasIndex("AracId");
 
                     b.ToTable("Musteriler");
+                });
+
+            modelBuilder.Entity("OtoServisSatis.Entities.Randevu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Ad")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("AracKasaTipi")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("AracMarka")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("AracModel")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal?>("Butce")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("EklenmeTarihi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("KullaniciId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("OnaylıMı")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Plaka")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Soyad")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TalepNotu")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("TalepTipi")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Tarih")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KullaniciId");
+
+                    b.ToTable("Randevular");
                 });
 
             modelBuilder.Entity("OtoServisSatis.Entities.Rol", b =>
@@ -413,6 +480,15 @@ namespace OtoServisSatis.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Arac");
+                });
+
+            modelBuilder.Entity("OtoServisSatis.Entities.Randevu", b =>
+                {
+                    b.HasOne("OtoServisSatis.Entities.Kullanici", "Kullanici")
+                        .WithMany()
+                        .HasForeignKey("KullaniciId");
+
+                    b.Navigation("Kullanici");
                 });
 
             modelBuilder.Entity("OtoServisSatis.Entities.Satis", b =>

@@ -3,76 +3,94 @@
     ViewData["Title"] = "Randevu Oluştur";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h2>Randevu Oluştur</h2>
+<div class="crud-container mt-5">
+    <div class="crud-page-header">
+        <h2 class="crud-page-title">Randevu Oluştur</h2>
+        <hr class="crud-divider" />
+    </div>
 
-            <form method="post" asp-action="Create" asp-controller="Randevu">
-                <div class="mb-3">
+    <div class="crud-form-card">
+        <form method="post" asp-action="Create" asp-controller="Randevu">
+
+            <div class="crud-form-row">
+                <div class="crud-form-group">
                     <label asp-for="TalepTipi" class="form-label">Talep Tipi</label>
                     <select asp-for="TalepTipi" class="form-select" id="talepTipiSelect">
                         <option value="">Seçiniz...</option>
                         <option value="1">Servis Talebi</option>
                         <option value="2">Satış Talebi</option>
                     </select>
-                    <span asp-validation-for="TalepTipi" class="text-danger"></span>
+                    <span asp-validation-for="TalepTipi" class="crud-validation-error"></span>
                 </div>
+            </div>
 
-                <div class="mb-3">
+            <div class="crud-form-row">
+                <div class="crud-form-group">
                     <label asp-for="Ad" class="form-label">Adı</label>
                     <input asp-for="Ad" class="form-control" required />
-                    <span asp-validation-for="Ad" class="text-danger"></span>
+                    <span asp-validation-for="Ad" class="crud-validation-error"></span>
                 </div>
 
-                <div class="mb-3">
+                <div class="crud-form-group">
                     <label asp-for="Soyad" class="form-label">Soyadı</label>
                     <input asp-for="Soyad" class="form-control" required />
-                    <span asp-validation-for="Soyad" class="text-danger"></span>
+                    <span asp-validation-for="Soyad" class="crud-validation-error"></span>
                 </div>
+            </div>
 
-                <div class="mb-3">
+            <div class="crud-form-row">
+                <div class="crud-form-group">
                     <label asp-for="Plaka" class="form-label">Plaka</label>
                     <input asp-for="Plaka" id="plakaInput" class="form-control" placeholder="34ABC123" required />
-                    <span asp-validation-for="Plaka" class="text-danger"></span>
+                    <span asp-validation-for="Plaka" class="crud-validation-error"></span>
                     <small class="form-text text-muted" id="plakaStatus"></small>
                 </div>
 
-                <div class="mb-3">
+                <div class="crud-form-group">
                     <label asp-for="AracMarka" class="form-label">Araç Markası</label>
                     <input asp-for="AracMarka" id="aracMarkaInput" class="form-control" readonly />
                 </div>
+            </div>
 
-                <div class="mb-3">
+            <div class="crud-form-row">
+                <div class="crud-form-group">
                     <label asp-for="AracModel" class="form-label">Araç Modeli</label>
                     <input asp-for="AracModel" id="aracModelInput" class="form-control" readonly />
                 </div>
 
-                <div class="mb-3">
+                <div class="crud-form-group">
                     <label asp-for="AracKasaTipi" class="form-label">Kasa Tipi</label>
                     <input asp-for="AracKasaTipi" id="aracKasaTipiInput" class="form-control" readonly />
                 </div>
+            </div>
 
-                <div class="mb-3">
+            <div class="crud-form-row">
+                <div class="crud-form-group">
                     <label asp-for="Tarih" class="form-label">Randevu Tarihi</label>
                     <input asp-for="Tarih" type="datetime-local" class="form-control" required />
-                    <span asp-validation-for="Tarih" class="text-danger"></span>
+                    <span asp-validation-for="Tarih" class="crud-validation-error"></span>
                 </div>
+            </div>
 
-                <div class="mb-3" id="talepNotuDiv" style="display:none;">
+            <div class="crud-form-row" id="talepNotuDiv" style="display:none;">
+                <div class="crud-form-group">
                     <label asp-for="TalepNotu" class="form-label" id="talepNotuLabel">Talep Notu</label>
                     <textarea asp-for="TalepNotu" class="form-control" rows="3" placeholder="Detaylarını giriniz..."></textarea>
-                    <span asp-validation-for="TalepNotu" class="text-danger"></span>
+                    <span asp-validation-for="TalepNotu" class="crud-validation-error"></span>
                 </div>
+            </div>
 
-                <div class="mb-3" id="butceDiv" style="display:none;">
+            <div class="crud-form-row" id="butceDiv" style="display:none;">
+                <div class="crud-form-group">
                     <label asp-for="Butce" class="form-label">Bütçe (Satış için)</label>
                     <input asp-for="Butce" type="number" step="0.01" class="form-control" />
                 </div>
+            </div>
 
+            <div class="crud-form-actions">
                 <button type="submit" class="btn btn-primary">Randevu Oluştur</button>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 
