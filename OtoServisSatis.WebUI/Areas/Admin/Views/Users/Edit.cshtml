@@ -45,13 +45,14 @@
 
                 <div class="crud-form-row">
                     <div class="crud-form-group">
-                        <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="crud-validation-error"></span>
-                    </div>
+                        <div class="crud-form-group">
+                            <label asp-for="Email" class="control-label">E-Mail *</label>
+                            <input asp-for="Email" class="form-control" type="email" placeholder="kullanici@example.com" />
+                            <span asp-validation-for="Email" class="crud-validation-error"></span>
+                        </div>
                     <div class="crud-form-group">
                         <label asp-for="Telefon" class="control-label"></label>
-                        <input asp-for="Telefon" class="form-control" />
+                        <input asp-for="Telefon" class="form-control" type="tel" maxlength="10" pattern="[0-9]{10}" placeholder="5551234567" inputmode="numeric" title="Lütfen 10 haneli telefon numarası giriniz" />
                         <span asp-validation-for="Telefon" class="crud-validation-error"></span>
                     </div>
                 </div>

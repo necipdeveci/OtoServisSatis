@@ -5,15 +5,21 @@ namespace OtoServisSatis.Entities
     public class Kullanici : IEntity
     {
         public int Id { get; set; }
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         [StringLength(50), Display(Name = "Ad"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Adi { get; set; }
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         [StringLength(50), Display(Name = "Soyad"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Soyadi { get; set; }
         [StringLength(50), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
+        [EmailAddress(ErrorMessage = "{0} geçerli bir email adresi olmalıdır")]
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Geçerli email formatı: metinsayi@domain.com")]
         public string Email { get; set; }
         [StringLength(20)]
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Telefon numarası 10 haneli ve yalnız sayı olmalıdır.")]
         public string? Telefon { get; set; }
         [StringLength(50)]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         public string? KullaniciAdi { get; set; }
         [Display(Name = "Şifre"), StringLength(50), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Sifre { get; set; }

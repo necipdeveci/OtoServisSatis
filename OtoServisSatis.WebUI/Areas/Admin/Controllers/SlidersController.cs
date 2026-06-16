@@ -42,14 +42,28 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         {
             try
             {
+                // Resim kontrolü
+                if (Resim is null || Resim.Length == 0)
+                {
+                    ModelState.AddModelError("Resim", "Resim dosyası gerekli");
+                    return View(slider);
+                }
+
+                // Model validation kontrolü
+                if (!ModelState.IsValid)
+                {
+                    return View(slider);
+                }
+
                 slider.Resim = await FileHelper.FileLoaderAsync(Resim, "/Img/Slider/");
                 await _service.AddAsync(slider);
                 await _service.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", "Bir hata oluştu: " + ex.Message);
+                return View(slider);
             }
         }
 

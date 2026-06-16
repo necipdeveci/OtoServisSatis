@@ -5,13 +5,25 @@ namespace OtoServisSatis.Entities
     public class Slider : IEntity
     {
         public int Id { get; set; }
-        [StringLength(150), Display(Name = "Başlık")]
+
+        [Required(ErrorMessage = "Başlık gerekli")]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
+        [StringLength(150, ErrorMessage = "Başlık 150 karakteri geçemez")]
+        [Display(Name = "Başlık")]
         public string? Baslik { get; set; }
-        [StringLength(500), Display(Name = "Açıklama")]
+
+        [Required(ErrorMessage = "Açıklama gerekli")]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
+        [StringLength(500, ErrorMessage = "Açıklama 500 karakteri geçemez")]
+        [Display(Name = "Açıklama")]
         public string? Aciklama { get; set; }
+
+        
         [StringLength(100)]
         public string? Resim { get; set; }
-        [StringLength(100)]
+
+        [StringLength(100, ErrorMessage = "Link 100 karakteri geçemez")]
+        [Display(Name = "Link")]
         public string? Link { get; set; }
     }
 }

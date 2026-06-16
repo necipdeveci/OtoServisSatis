@@ -159,14 +159,14 @@ namespace OtoServisSatis.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2026, 6, 11, 11, 30, 16, 736, DateTimeKind.Local).AddTicks(8843),
+                            EklenmeTarihi = new DateTime(2026, 6, 16, 14, 17, 21, 451, DateTimeKind.Local).AddTicks(3608),
                             Email = "admin@com",
                             KullaniciAdi = "admin",
                             RolId = 1,
                             Sifre = "123456",
                             Soyadi = "Admin",
                             Telefon = "1234567890",
-                            UserGuid = new Guid("a4178153-19c4-490c-8d2e-931f7c1295c0")
+                            UserGuid = new Guid("daba3314-7686-4a76-af84-f820fb01ee81")
                         });
                 });
 
@@ -360,10 +360,12 @@ namespace OtoServisSatis.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Aciklama")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Baslik")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 

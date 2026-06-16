@@ -13,13 +13,16 @@ namespace OtoServisSatis.Entities
         [Display(Name = "Marka Adı"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public int MarkaId { get; set; }
         [StringLength(50), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         public string Renk { get; set; }
         [Display(Name = "Fiyatı")]
         public decimal Fiyati { get; set; }
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         [StringLength(50), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Modeli { get; set; }
         [Display(Name = "Kasa Tipi")]
         [StringLength(50), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         public string KasaTipi { get; set; }
         [Display(Name = "Model Yılı")]
         public int ModelYili { get; set; }
@@ -28,6 +31,7 @@ namespace OtoServisSatis.Entities
         [Display(Name = "Anasayfa?")]
         public bool Anasayfa { get; set; }
         [Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         public string Notlar { get; set; }
         [StringLength(100)]
         public string? Resim1 { get; set; }

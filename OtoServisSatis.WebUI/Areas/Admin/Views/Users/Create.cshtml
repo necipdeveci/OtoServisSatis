@@ -44,7 +44,7 @@
 
                     <div class="crud-form-group">
                         <label asp-for="Telefon" class="control-label">Telefon</label>
-                        <input asp-for="Telefon" class="form-control" placeholder="0555 123 4567" />
+                        <input asp-for="Telefon" class="form-control" type="tel" maxlength="10" pattern="[0-9]{10}" placeholder="5551234567" inputmode="numeric" title="Lütfen 10 haneli telefon numarası giriniz" />
                         <span asp-validation-for="Telefon" class="crud-validation-error"></span>
                     </div>
                 </div>
@@ -65,7 +65,6 @@
                     <div class="crud-form-group">
                         <label asp-for="Sifre" class="control-label">Şifre *</label>
                         <input asp-for="Sifre" class="form-control" type="password" placeholder="Güvenli bir şifre girin" />
-                        <small class="text-muted d-block mt-1">En az 8 karakter, özel karakter içermeli</small>
                         <span asp-validation-for="Sifre" class="crud-validation-error"></span>
                     </div>
                 </div>

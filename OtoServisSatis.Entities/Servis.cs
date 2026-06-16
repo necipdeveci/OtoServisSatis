@@ -8,6 +8,7 @@ namespace OtoServisSatis.Entities
         [Display(Name = "Servise Geliş Tarihi")]
         public DateTime ServiseGelisTarihi { get; set; }
         [Display(Name = "Araç Sorunu"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         public string AracSorunu { get; set; }
         [Display(Name = "Servis Ücreti")]
         public decimal ServisUcreti { get; set; }
@@ -21,16 +22,20 @@ namespace OtoServisSatis.Entities
         [Display(Name = "Araç Plaka"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string AracPlaka { get; set; }
         [StringLength(50), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         public string Marka { get; set; }
         [StringLength(50)]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         public string? Model { get; set; }
         [StringLength(50)]
         [Display(Name = "Kasa Tipi")]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         public string? KasaTipi { get; set; }
         [StringLength(50)]
         [Display(Name = "Şase No")]
         public string? SaseNo { get; set; }
         [Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
+        [RegularExpression(@"^(?!\d+$).+", ErrorMessage = "{0} sadece sayıdan oluşamaz!")]
         public string Notlar { get; set; }
 
         // GÖRSELDEKİ GÖREV 4: Tamamlanma durum kontrolü
